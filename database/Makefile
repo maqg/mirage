@@ -1,8 +1,8 @@
 all::
-	python3 ./createExample.py > ./mysql.default.example
+	python ./createExample.py > ./mysql.default.example
 
 init::
-	python3 ./createExample.py > ./mysql.default.example
+	python ./createExample.py > ./mysql.default.example
 	./init_db.sh
 	./dump.sh
 
