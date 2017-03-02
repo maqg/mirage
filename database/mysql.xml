@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<ECRFiles>
+	<file index="1" name="tb_user" caption="">
+		<field name='ID' type='VARCHAR(10)' caption=''/>
+		<field name='U_State' type='TINYINT' caption=''/>
+		<field name='U_Type' type='INTEGER' caption=''/>
+		<field name='U_LastLogin' type='BIGINT' caption=''/>
+		<field name='U_LastSync' type='BIGINT' caption=''/>
+		<field name='U_CreateTime' type='BIGINT' caption=''/>
+		<field name='U_Name' type='VARCHAR(10)' caption=''/>
+		<field name='U_Password' type='VARCHAR(10)' caption=''/>
+		<field name='U_UKey' type='VARCHAR(10)' caption=''/>
+		<field name='U_Email' type='VARCHAR(10)' caption=''/>
+		<field name='U_PhoneNumber' type='VARCHAR(10)' caption=''/>
+		<field name='U_Desc' type='VARCHAR(10)' caption=''/>
+	</file>
+	<file index="1" name="tb_misc" caption="">
+		<field name='ID' type='BIGINT' caption=''/>
+		<field name='M_Name' type='VARCHAR(10)' caption=''/>
+		<field name='M_Value' type='VARCHAR(10)' caption=''/>
+		<field name='M_Type' type='VARCHAR(10)' caption=''/>
+	</file>
+	<file index="1" name="v_user" caption="">
+		<field name='ID' type='' caption=''/>
+		<field name='Name' type='' caption=''/>
+	</file>
+</ECRFiles>

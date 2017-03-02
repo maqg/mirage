@@ -1,0 +1,7 @@
+SUBDIRS = css  fonts  js
+
+all::
+
+clean::
+
+

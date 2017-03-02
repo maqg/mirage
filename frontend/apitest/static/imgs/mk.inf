@@ -1,0 +1,13 @@
+LINKS = *.png
+
+all::
+
+clean::
+
+install::
+	${MKDIR} -p $(TOPDIR)/OCTFrame/static/imgs/
+	${COPY} *.png $(TOPDIR)/OCTFrame/static/imgs/.
+
+real_install::
+	${MKDIR} -p $(DSTDIR)/OCTFrame/static/imgs/
+	${COPY} *.png $(DSTDIR)/OCTFrame/static/imgs/.

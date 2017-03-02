@@ -1,0 +1,14 @@
+LINKS = *.js
+
+all::
+
+clean::
+
+install::
+	${MKDIR} -p $(TOPDIR)/OCTFrame/static/js/
+	${COPY} *.js $(TOPDIR)/OCTFrame/static/js/.
+
+real_install::
+	${MKDIR} -p $(DSTDIR)/OCTFrame/static/js/
+	${COPY} *.js $(DSTDIR)/OCTFrame/static/js/.
+

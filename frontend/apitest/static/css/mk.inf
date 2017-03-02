@@ -1,0 +1,13 @@
+LINKS = *.css
+
+all::
+
+clean::
+
+install::
+	${MKDIR} -p $(TOPDIR)/OCTFrame/static/css/
+	${COPY} *.css $(TOPDIR)/OCTFrame/static/css/.
+
+real_install::
+	${MKDIR} -p $(DSTDIR)/OCTFrame/static/css/
+	${COPY} *.css $(DSTDIR)/OCTFrame/static/css/.

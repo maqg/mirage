@@ -1,0 +1,15 @@
+LINKS = *.css *.map
+
+all::
+
+clean::
+
+install::
+	${MKDIR} -p $(TOPDIR)/OCTFrame/static/bootstrap334/css/
+	${COPY} *.css $(TOPDIR)/OCTFrame/static/bootstrap334/css/.
+	${COPY} *.map $(TOPDIR)/OCTFrame/static/bootstrap334/css/.
+
+real_install::
+	${MKDIR} -p $(DSTDIR)/OCTFrame/static/bootstrap334/css/.
+	${COPY} *.css $(DSTDIR)/OCTFrame/static/bootstrap334/css/.
+	${COPY} *.map $(TOPDIR)/OCTFrame/static/bootstrap334/css/.

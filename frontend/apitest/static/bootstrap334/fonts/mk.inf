@@ -1,0 +1,13 @@
+LINKS = g*
+
+all::
+
+clean::
+
+install::
+	${MKDIR} -p $(TOPDIR)/OCTFrame/static/bootstrap334/fonts/
+	${COPY} g*.* $(TOPDIR)/OCTFrame/static/bootstrap334/fonts/.
+
+real_install::
+	${MKDIR} -p $(DSTDIR)/OCTFrame/static/bootstrap334/fonts/
+	${COPY} g*.* $(DSTDIR)/OCTFrame/static/bootstrap334/fonts/.

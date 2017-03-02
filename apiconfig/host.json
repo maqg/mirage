@@ -1,0 +1,39 @@
+{
+   	"APIAddHost": {
+		"name": "添加主机",
+		"handler": "AddHost",
+		"paras": [
+			{
+				"name": "ip",
+				"type": "string",
+				"desc": "主机地址",
+				"default": "NotNull"
+			},
+			{
+				"name": "account",
+				"type": "string",
+				"desc": "账号名称",
+				"default": "root"
+			},
+			{
+				"name": "password",
+				"type": "string",
+				"desc": "密码（明文）",
+				"default": "NotNull"
+			}
+		]
+	},
+
+	"APIDeleteHost": {
+		"name": "删除单个主机",
+		"handler": "DeleteHost",
+		"paras": [
+			{
+				"name": "id",
+				"type": "string",
+				"desc": "Host的UUID",
+				"default": "NotNull"
+			}
+		]
+	}
+}

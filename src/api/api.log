@@ -1,0 +1,2 @@
+ERROR 2017/02/17 11:13:18 log.go:90: Find user test error sql: no rows in result set
+ERROR 2017/02/17 11:13:49 log.go:90: Find user test error sql: no rows in result set

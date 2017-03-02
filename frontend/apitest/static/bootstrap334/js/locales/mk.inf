@@ -1,0 +1,10 @@
+LINKS = *.js
+
+install::
+	${MKDIR} -p $(TOPDIR)/OCTFrame/static/bootstrap334/js/locales
+	${COPY} *.js $(TOPDIR)/OCTFrame/static/bootstrap334/js/locales/.
+
+real_install::
+	${MKDIR} -p $(DSTDIR)/OCTFrame/static/bootstrap334/js/locales
+	${COPY} *.js $(DSTDIR)/OCTFrame/static/bootstrap334/js/locales/.
+
