@@ -41,7 +41,7 @@ func FindUserById(db *octmysql.OctMysql, id string) *user.User {
 	return user
 }
 
-func APIAddAccount(paras *ApiParas) *ApiResponse {
+func APIAddUser(paras *ApiParas) *ApiResponse {
 	resp := new(ApiResponse)
 
 	newUser := FindUserByName(paras.Db, paras.InParas.Paras["account"].(string))
@@ -63,32 +63,32 @@ func APIAddAccount(paras *ApiParas) *ApiResponse {
 	return resp
 }
 
-func APILoginByAccount(paras *ApiParas) *ApiResponse {
-	octlog.Debug("running in APILoginByAccount\n")
+func APILoginByUser(paras *ApiParas) *ApiResponse {
+	octlog.Debug("running in APILoginByUser\n")
 	resp := new(ApiResponse)
 	resp.Error = 0
 	return resp
 }
 
-func APIShowAccount(paras *ApiParas) *ApiResponse {
-	octlog.Debug("running in APIShowAccount\n")
+func APIShowUser(paras *ApiParas) *ApiResponse {
+	octlog.Debug("running in APIShowUser\n")
 	resp := new(ApiResponse)
 	resp.Error = 0
 	return resp
 }
 
-func APIUpdateAccount(paras *ApiParas) *ApiResponse {
-	octlog.Debug("running in APIUpdateAccount\n")
+func APIUpdateUser(paras *ApiParas) *ApiResponse {
+	octlog.Debug("running in APIUpdateUser\n")
 	resp := new(ApiResponse)
 	resp.Error = 0
 	return resp
 }
 
-func APIShowAccountList(paras *ApiParas) *ApiResponse {
+func APIShowUserList(paras *ApiParas) *ApiResponse {
 
 	resp := new(ApiResponse)
 
-	octlog.Debug("running in APIShowAccountList\n")
+	octlog.Debug("running in APIShowUserList\n")
 
 	rows, err := paras.Db.Query("SELECT ID,U_Name FROM tb_user")
 	if err != nil {
@@ -114,9 +114,9 @@ func APIShowAccountList(paras *ApiParas) *ApiResponse {
 	return resp
 }
 
-func APIDeleteAccount(paras *ApiParas) *ApiResponse {
+func APIDeleteUser(paras *ApiParas) *ApiResponse {
 
-	octlog.Debug("running in APIDeleteAccount\n")
+	octlog.Debug("running in APIDeleteUser\n")
 
 	resp := new(ApiResponse)
 
@@ -131,10 +131,10 @@ func APIDeleteAccount(paras *ApiParas) *ApiResponse {
 	return resp
 }
 
-func APIShowAllAccount(paras *ApiParas) *ApiResponse {
+func APIShowAllUser(paras *ApiParas) *ApiResponse {
 	resp := new(ApiResponse)
 
-	octlog.Debug("running in APIShowAllAccount\n")
+	octlog.Debug("running in APIShowAllUser\n")
 
 	rows, err := paras.Db.Query("SELECT ID,U_Name,U_State,U_Type FROM tb_user")
 	if err != nil {
@@ -162,21 +162,21 @@ func APIShowAllAccount(paras *ApiParas) *ApiResponse {
 	return resp
 }
 
-func APIResetAccountPassword(paras *ApiParas) *ApiResponse {
-	octlog.Debug("running in APIResetAccountPassword\n")
+func APIResetUserPassword(paras *ApiParas) *ApiResponse {
+	octlog.Debug("running in APIResetUserPassword\n")
 	resp := new(ApiResponse)
 	resp.Error = 0
 	return resp
 }
 
-func APIUpdateAccountPassword(paras *ApiParas) *ApiResponse {
-	octlog.Debug("running in APIUpdateAccountPassword\n")
+func APIUpdateUserPassword(paras *ApiParas) *ApiResponse {
+	octlog.Debug("running in APIUpdateUserPassword\n")
 	resp := new(ApiResponse)
 	resp.Error = 0
 	return resp
 }
 
-func APILogOut(paras *ApiParas) *ApiResponse {
+func APIUserLogOut(paras *ApiParas) *ApiResponse {
 	octlog.Debug("running in APILogOut\n")
 	resp := new(ApiResponse)
 	resp.Error = 0

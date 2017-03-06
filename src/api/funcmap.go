@@ -8,20 +8,20 @@ func InitApiService() {
 	GApiServices = make(map[string]*ApiService, 10000)
 
 	// --------------------
-	// for APIAddAccount
+	// for APIAddUser
 	// --------------------
 	service = new(ApiService)
-	service.Name = "APIAddAccount"
-	service.Handler = APIAddAccount
-	GApiServices["octlink.mirage.center.user.APIAddAccount"] = service
+	service.Name = "APIAddUser"
+	service.Handler = APIAddUser
+	GApiServices["octlink.mirage.center.user.APIAddUser"] = service
 
 	// --------------------
-	// for APIDeleteAccount
+	// for APIDeleteUser
 	// --------------------
 	service = new(ApiService)
-	service.Name = "APIDeleteAccount"
-	service.Handler = APIDeleteAccount
-	GApiServices["octlink.mirage.center.user.APIDeleteAccount"] = service
+	service.Name = "APIDeleteUser"
+	service.Handler = APIDeleteUser
+	GApiServices["octlink.mirage.center.user.APIDeleteUser"] = service
 
 	// --------------------
 	// for APILogOut
@@ -32,60 +32,60 @@ func InitApiService() {
 	GApiServices["octlink.mirage.center.user.APILogOut"] = service
 
 	// --------------------
-	// for APILoginByAccount
+	// for APILoginByUser
 	// --------------------
 	service = new(ApiService)
-	service.Name = "APILoginByAccount"
-	service.Handler = APILoginByAccount
-	GApiServices["octlink.mirage.center.user.APILoginByAccount"] = service
+	service.Name = "APILoginByUser"
+	service.Handler = APILoginByUser
+	GApiServices["octlink.mirage.center.user.APILoginByUser"] = service
 
 	// --------------------
-	// for APIResetAccountPassword
+	// for APIResetUserPassword
 	// --------------------
 	service = new(ApiService)
-	service.Name = "APIResetAccountPassword"
-	service.Handler = APIResetAccountPassword
-	GApiServices["octlink.mirage.center.user.APIResetAccountPassword"] = service
+	service.Name = "APIResetUserPassword"
+	service.Handler = APIResetUserPassword
+	GApiServices["octlink.mirage.center.user.APIResetUserPassword"] = service
 
 	// --------------------
-	// for APIShowAccount
+	// for APIShowAllUser
 	// --------------------
 	service = new(ApiService)
-	service.Name = "APIShowAccount"
-	service.Handler = APIShowAccount
-	GApiServices["octlink.mirage.center.user.APIShowAccount"] = service
+	service.Name = "APIShowAllUser"
+	service.Handler = APIShowAllUser
+	GApiServices["octlink.mirage.center.user.APIShowAllUser"] = service
 
 	// --------------------
-	// for APIShowAccountList
+	// for APIShowUser
 	// --------------------
 	service = new(ApiService)
-	service.Name = "APIShowAccountList"
-	service.Handler = APIShowAccountList
-	GApiServices["octlink.mirage.center.user.APIShowAccountList"] = service
+	service.Name = "APIShowUser"
+	service.Handler = APIShowUser
+	GApiServices["octlink.mirage.center.user.APIShowUser"] = service
 
 	// --------------------
-	// for APIShowAllAccount
+	// for APIShowUserList
 	// --------------------
 	service = new(ApiService)
-	service.Name = "APIShowAllAccount"
-	service.Handler = APIShowAllAccount
-	GApiServices["octlink.mirage.center.user.APIShowAllAccount"] = service
+	service.Name = "APIShowUserList"
+	service.Handler = APIShowUserList
+	GApiServices["octlink.mirage.center.user.APIShowUserList"] = service
 
 	// --------------------
-	// for APIUpdateAccount
+	// for APIUpdateUser
 	// --------------------
 	service = new(ApiService)
-	service.Name = "APIUpdateAccount"
-	service.Handler = APIUpdateAccount
-	GApiServices["octlink.mirage.center.user.APIUpdateAccount"] = service
+	service.Name = "APIUpdateUser"
+	service.Handler = APIUpdateUser
+	GApiServices["octlink.mirage.center.user.APIUpdateUser"] = service
 
 	// --------------------
-	// for APIUpdateAccountPassword
+	// for APIUpdateUserPassword
 	// --------------------
 	service = new(ApiService)
-	service.Name = "APIUpdateAccountPassword"
-	service.Handler = APIUpdateAccountPassword
-	GApiServices["octlink.mirage.center.user.APIUpdateAccountPassword"] = service
+	service.Name = "APIUpdateUserPassword"
+	service.Handler = APIUpdateUserPassword
+	GApiServices["octlink.mirage.center.user.APIUpdateUserPassword"] = service
 
 	// --------------------
 	// for APIAddHost
@@ -102,4 +102,84 @@ func InitApiService() {
 	service.Name = "APIDeleteHost"
 	service.Handler = APIDeleteHost
 	GApiServices["octlink.mirage.center.host.APIDeleteHost"] = service
+
+	// --------------------
+	// for APIAddAccount
+	// --------------------
+	service = new(ApiService)
+	service.Name = "APIAddAccount"
+	service.Handler = APIAddAccount
+	GApiServices["octlink.mirage.center.account.APIAddAccount"] = service
+
+	// --------------------
+	// for APIDeleteAccount
+	// --------------------
+	service = new(ApiService)
+	service.Name = "APIDeleteAccount"
+	service.Handler = APIDeleteAccount
+	GApiServices["octlink.mirage.center.account.APIDeleteAccount"] = service
+
+	// --------------------
+	// for APILogOut
+	// --------------------
+	service = new(ApiService)
+	service.Name = "APILogOut"
+	service.Handler = APILogOut
+	GApiServices["octlink.mirage.center.account.APILogOut"] = service
+
+	// --------------------
+	// for APILoginByAccount
+	// --------------------
+	service = new(ApiService)
+	service.Name = "APILoginByAccount"
+	service.Handler = APILoginByAccount
+	GApiServices["octlink.mirage.center.account.APILoginByAccount"] = service
+
+	// --------------------
+	// for APIResetAccountPassword
+	// --------------------
+	service = new(ApiService)
+	service.Name = "APIResetAccountPassword"
+	service.Handler = APIResetAccountPassword
+	GApiServices["octlink.mirage.center.account.APIResetAccountPassword"] = service
+
+	// --------------------
+	// for APIShowAccount
+	// --------------------
+	service = new(ApiService)
+	service.Name = "APIShowAccount"
+	service.Handler = APIShowAccount
+	GApiServices["octlink.mirage.center.account.APIShowAccount"] = service
+
+	// --------------------
+	// for APIShowAccountList
+	// --------------------
+	service = new(ApiService)
+	service.Name = "APIShowAccountList"
+	service.Handler = APIShowAccountList
+	GApiServices["octlink.mirage.center.account.APIShowAccountList"] = service
+
+	// --------------------
+	// for APIShowAllAccount
+	// --------------------
+	service = new(ApiService)
+	service.Name = "APIShowAllAccount"
+	service.Handler = APIShowAllAccount
+	GApiServices["octlink.mirage.center.account.APIShowAllAccount"] = service
+
+	// --------------------
+	// for APIUpdateAccount
+	// --------------------
+	service = new(ApiService)
+	service.Name = "APIUpdateAccount"
+	service.Handler = APIUpdateAccount
+	GApiServices["octlink.mirage.center.account.APIUpdateAccount"] = service
+
+	// --------------------
+	// for APIUpdateAccountPassword
+	// --------------------
+	service = new(ApiService)
+	service.Name = "APIUpdateAccountPassword"
+	service.Handler = APIUpdateAccountPassword
+	GApiServices["octlink.mirage.center.account.APIUpdateAccountPassword"] = service
 }

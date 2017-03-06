@@ -11,7 +11,7 @@ import (
 var logger *octlog.LogConfig
 
 func InitLog(level int) {
-	logger = octlog.InitLogConfig("api.log", level)
+	logger = octlog.InitLogConfig("user.log", level)
 }
 
 type User struct {
