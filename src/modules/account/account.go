@@ -10,9 +10,6 @@ import (
 
 var logger *octlog.LogConfig
 
-var ACCOUNT_STATE_ENABLE = 1
-var ACCOUNT_STATE_DISABLE = 0
-
 func InitLog(level int) {
 	logger = octlog.InitLogConfig("account.log", level)
 }

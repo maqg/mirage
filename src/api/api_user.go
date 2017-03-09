@@ -5,47 +5,13 @@ import (
 	"octlink/mirage/src/modules/user"
 	"octlink/mirage/src/utils/merrors"
 	"octlink/mirage/src/utils/octlog"
-	"octlink/mirage/src/utils/octmysql"
 	"octlink/mirage/src/utils/uuid"
 )
-
-func FindUserByName(db *octmysql.OctMysql, name string) *user.User {
-
-	row := db.QueryRow("SELECT ID,U_Name FROM tb_user WHERE U_Name = ? LIMIT 1", name)
-
-	user := new(user.User)
-
-	err := row.Scan(&user.Id, &user.Name)
-	if err != nil {
-		logger.Errorf("Find user %s error %s", name, err.Error())
-		return nil
-	}
-
-	octlog.Debug("id %s, name :%s", user.Id, user.Name)
-
-	return user
-}
-
-func FindUserById(db *octmysql.OctMysql, id string) *user.User {
-
-	row := db.QueryRow("SELECT ID,U_Name FROM tb_user WHERE ID = ? LIMIT 1", id)
-
-	user := new(user.User)
-	err := row.Scan(&user.Id, &user.Name)
-	if err != nil {
-		logger.Errorf("Find user %s error %s", id, err.Error())
-		return nil
-	}
-
-	octlog.Debug("id %s, name :%s", user.Id, user.Name)
-
-	return user
-}
 
 func APIAddUser(paras *ApiParas) *ApiResponse {
 	resp := new(ApiResponse)
 
-	newUser := FindUserByName(paras.Db, paras.InParas.Paras["account"].(string))
+	newUser := user.FindUserByName(paras.Db, paras.InParas.Paras["account"].(string))
 	if newUser != nil {
 		logger.Errorf("user %s already exist\n", newUser.Name)
 		resp.Error = merrors.ERR_SEGMENT_ALREADY_EXIST
@@ -151,7 +117,7 @@ func APIDeleteUser(paras *ApiParas) *ApiResponse {
 
 	resp := new(ApiResponse)
 
-	user := FindUserById(paras.Db, paras.InParas.Paras["id"].(string))
+	user := user.FindUser(paras.Db, paras.InParas.Paras["id"].(string))
 	if user == nil {
 		resp.Error = merrors.ERR_SEGMENT_NOT_EXIST
 		return resp

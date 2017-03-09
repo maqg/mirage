@@ -1,7 +1,6 @@
 {
    	"APIAddUser": {
 		"name": "添加账号",
-		"handler": "AddUser",
 		"paras": [
 			{
 				"name": "account",
@@ -44,7 +43,6 @@
 
 	"APILoginByUser": {
 		"name": "根据账号登录",
-		"handler": "AddUser",
 		"paras": [
 			{
 				"name": "account",
@@ -63,7 +61,6 @@
 
 	"APIShowUser": {
 		"name": "获取单个账号信息",
-		"handler": "AddUser",
 		"paras": [
 			{
 				"name": "id",
@@ -76,7 +73,6 @@
 
 	"APIShowAllUser": {
 		"name": "获取所有账号信息",
-		"handler": "AddUser",
 		"paras": [
 			{
 				"name": "start",
@@ -95,13 +91,11 @@
 
 	"APIShowUserList": {
 		"name": "获取账号列表",
-		"handler": "AddUser",
 		"paras": []
 	},
 
 	"APIDeleteUser": {
 		"name": "删除单个账号信息",
-		"handler": "AddUser",
 		"paras": [
 			{
 				"name": "id",
@@ -114,7 +108,6 @@
 
 	"APIResetUserPassword": {
 		"name": "重置账号密码",
-		"handler": "AddUser",
 		"paras": [
 			{
 				"name": "id",
@@ -133,7 +126,6 @@
 
 	"APIUpdateUserPassword": {
 		"name": "更新账号密码",
-		"handler": "AddUser",
 		"paras": [
 			{
 				"name": "id",
@@ -158,7 +150,6 @@
 
 	"APIUpdateUser": {
 		"name": "编辑账号信息",
-		"handler": "AddUser",
 		"paras": [
 			{
 				"name": "id",
@@ -189,7 +180,6 @@
 
 	"APIUserLogOut": {
 		"name": "退出登录",
-		"handler": "AddUser",
 		"paras": [
 			{
 				"name": "sessionUuid",

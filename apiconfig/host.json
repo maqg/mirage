@@ -1,7 +1,6 @@
 {
    	"APIAddHost": {
 		"name": "添加主机",
-		"handler": "AddHost",
 		"paras": [
 			{
 				"name": "ip",
@@ -26,7 +25,6 @@
 
 	"APIDeleteHost": {
 		"name": "删除单个主机",
-		"handler": "DeleteHost",
 		"paras": [
 			{
 				"name": "id",
