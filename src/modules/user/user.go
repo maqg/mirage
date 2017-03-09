@@ -28,7 +28,7 @@ type User struct {
 	Desc        string `json:"desc"`
 }
 
-func (user *User) UserBrief() map[string]interface{} {
+func (user *User) Brief() map[string]interface{} {
 	u := make(map[string]interface{}, 2)
 	u["id"] = user.Id
 	u["name"] = user.Name
@@ -41,7 +41,7 @@ func (user *User) Add(db *octmysql.OctMysql) int {
 	sql := fmt.Sprintf("INSERT INTO %s (ID, U_Name, U_Type, "+
 		"U_Email, U_PhoneNumber, U_Password, U_CreateTime, "+
 		"U_Description) VALUES ('%s', '%s', '%d', '%s', '%s', "+
-		"'%d', '%d', '%s')",
+		"'%s', '%d', '%s')",
 		config.TB_USER,
 		user.Id, user.Name, user.Type,
 		user.Email, user.PhoneNumber, user.Password,

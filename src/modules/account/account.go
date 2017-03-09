@@ -43,7 +43,7 @@ func (account *Account) Add(db *octmysql.OctMysql) int {
 	sql := fmt.Sprintf("INSERT INTO %s (ID, U_Name, U_Type, "+
 		"U_Email, U_PhoneNumber, U_Password, U_CreateTime, "+
 		"U_Description) VALUES ('%s', '%s', '%d', '%s', '%s', "+
-		"'%d', '%d', '%s')",
+		"'%s', '%d', '%s')",
 		config.TB_ACCOUNT,
 		account.Id, account.Name, account.Type,
 		account.Email, account.PhoneNumber, account.Password,

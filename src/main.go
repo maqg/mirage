@@ -4,7 +4,9 @@ import (
 	"fmt"
 	"net/http"
 	"octlink/mirage/src/api"
+	"octlink/mirage/src/modules/account"
 	"octlink/mirage/src/modules/user"
+	"octlink/mirage/src/modules/usergroup"
 	"octlink/mirage/src/utils"
 	"octlink/mirage/src/utils/octlog"
 )
@@ -14,8 +16,12 @@ func initDebugConfig() {
 }
 
 func initLogConfig() {
+
 	api.InitApiLog(octlog.DEBUG_LEVEL)
+
 	user.InitLog(octlog.DEBUG_LEVEL)
+	account.InitLog(octlog.DEBUG_LEVEL)
+	usergroup.InitLog(octlog.DEBUG_LEVEL)
 }
 
 const (

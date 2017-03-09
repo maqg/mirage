@@ -26,6 +26,18 @@
 				"type": "string",
 				"desc": "电话号码",
 				"default": ""
+			},
+			{
+				"name": "type",
+				"type": "int",
+				"desc": "账号类型",
+				"default": 3
+			},
+			{
+				"name": "desc",
+				"type": "string",
+				"desc": "描述信息",
+				"default": ""
 			}
 		]
 	},
@@ -165,6 +177,12 @@
 				"type": "string",
 				"desc": "电话号码",
 				"default": ""
+			},
+			{
+				"name": "desc",
+				"type": "string",
+				"desc": "描述信息",
+				"default": ""
 			}
 		]
 	},
@@ -174,9 +192,9 @@
 		"handler": "AddAccount",
 		"paras": [
 			{
-				"name": "sessionUuid",
+				"name": "sessionId",
 				"type": "string",
-				"desc": "账号UUID",
+				"desc": "会话Id",
 				"default": "NotNull"
 			}
 		]

@@ -1,6 +1,7 @@
 package api
 
 import (
+	"fmt"
 	"octlink/mirage/src/modules/user"
 	"octlink/mirage/src/utils/merrors"
 	"octlink/mirage/src/utils/octlog"
@@ -71,9 +72,24 @@ func APILoginByUser(paras *ApiParas) *ApiResponse {
 }
 
 func APIShowUser(paras *ApiParas) *ApiResponse {
+
 	octlog.Debug("running in APIShowUser\n")
+
 	resp := new(ApiResponse)
-	resp.Error = 0
+
+	userId := paras.InParas.Paras["id"].(string)
+	temp := user.FindUser(paras.Db, userId)
+
+	if temp == nil {
+		resp.Error = merrors.ERR_SEGMENT_NOT_EXIST
+		resp.ErrorLog = fmt.Sprintf("user %s not found", userId)
+		return resp
+	}
+
+	resp.Data = temp
+
+	octlog.Debug("found User %s", temp.Name)
+
 	return resp
 }
 
@@ -84,33 +100,41 @@ func APIUpdateUser(paras *ApiParas) *ApiResponse {
 	return resp
 }
 
-func APIShowUserList(paras *ApiParas) *ApiResponse {
+func APIShowAllUser(paras *ApiParas) *ApiResponse {
 
 	resp := new(ApiResponse)
 
-	octlog.Debug("running in APIShowUserList\n")
+	offset := ParasInt(paras.InParas.Paras["start"])
+	limit := ParasInt(paras.InParas.Paras["limit"])
 
-	rows, err := paras.Db.Query("SELECT ID,U_Name FROM tb_user")
+	rows, err := paras.Db.Query("SELECT ID,U_Name,U_State,U_Type,U_Email,U_PhoneNumber,"+
+		"U_Description,U_CreateTime,U_LastLogin,U_LastSync "+
+		"FROM tb_user LIMIT ?,?", offset, limit)
 	if err != nil {
 		logger.Errorf("query user list error %s\n", err.Error())
+		resp.Error = merrors.ERR_DB_ERR
+		return resp
 	}
 	defer rows.Close()
 
-	userList := make([]map[string]interface{}, 0)
+	userList := make([]user.User, 0)
 
 	for rows.Next() {
 		var user user.User
-		err = rows.Scan(&user.Id, &user.Name)
+		err = rows.Scan(&user.Id, &user.Name, &user.State,
+			&user.Type, &user.Email, &user.PhoneNumber, &user.Desc,
+			&user.CreateTime, &user.LastLogin, &user.LastSync)
 		if err == nil {
-			logger.Debugf("query result: %s:%s\n", user.Id, user.Name)
+			logger.Debugf("query result: %s:%d\n", user.Id,
+				user.Name, user.State, user.Type)
 		} else {
 			logger.Errorf("query user list error %s\n", err.Error())
 		}
-		userList = append(userList, user.UserBrief())
+		userList = append(userList, user)
 	}
 
 	resp.Data = userList
-	resp.Error = 0
+
 	return resp
 }
 
@@ -131,12 +155,11 @@ func APIDeleteUser(paras *ApiParas) *ApiResponse {
 	return resp
 }
 
-func APIShowAllUser(paras *ApiParas) *ApiResponse {
+func APIShowUserList(paras *ApiParas) *ApiResponse {
+
 	resp := new(ApiResponse)
 
-	octlog.Debug("running in APIShowAllUser\n")
-
-	rows, err := paras.Db.Query("SELECT ID,U_Name,U_State,U_Type FROM tb_user")
+	rows, err := paras.Db.Query("SELECT ID,U_Name FROM tb_user")
 	if err != nil {
 		logger.Errorf("query user list error %s\n", err.Error())
 		resp.Error = merrors.ERR_DB_ERR
@@ -144,21 +167,21 @@ func APIShowAllUser(paras *ApiParas) *ApiResponse {
 	}
 	defer rows.Close()
 
-	userList := make([]user.User, 0)
+	userList := make([]map[string]interface{}, 0)
 
 	for rows.Next() {
 		var user user.User
-		err = rows.Scan(&user.Id, &user.Name, &user.State, &user.Type)
+		err = rows.Scan(&user.Id, &user.Name)
 		if err == nil {
-			logger.Debugf("query result: %s:%s\n", user.Id, user.Name, user.State, user.Type)
+			logger.Debugf("query result: %s:%s\n", user.Id, user.Name)
 		} else {
 			logger.Errorf("query user list error %s\n", err.Error())
 		}
-		userList = append(userList, user)
+		userList = append(userList, user.Brief())
 	}
 
 	resp.Data = userList
-	resp.Error = 0
+
 	return resp
 }
 
