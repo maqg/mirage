@@ -14,6 +14,16 @@ const (
 	ERR_SYSCALL_ERR
 	ERR_SYSTEM_ERR
 	ERR_NO_SUCH_API
+
+	// User
+	ERR_USER_NOT_EXIST
+	ERR_USER_ALREADY_EXIST
+	ERR_PASSWORD_DONT_MATCH
+
+	// User Group
+
+	ERR_USERGROUP_NOT_EXIST
+	ERR_USERGROUP_ALREADY_EXIST
 )
 
 var GErrors = map[int]string{
@@ -30,6 +40,15 @@ var GErrors = map[int]string{
 	ERR_SYSCALL_ERR:           "System Call Error",
 	ERR_SYSTEM_ERR:            "System Error",
 	ERR_NO_SUCH_API:           "No Such API",
+
+	// User
+	ERR_USER_NOT_EXIST:      "User Not Exist",
+	ERR_USER_ALREADY_EXIST:  "User Already Exist",
+	ERR_PASSWORD_DONT_MATCH: "User And Password Not Match",
+
+	// User group
+	ERR_USERGROUP_NOT_EXIST:     "User Group Not Exist",
+	ERR_USERGROUP_ALREADY_EXIST: "User Group Already Exist",
 }
 
 var GErrorsCN = map[int]string{
@@ -46,6 +65,15 @@ var GErrorsCN = map[int]string{
 	ERR_SYSCALL_ERR:           "系统调用错误",
 	ERR_SYSTEM_ERR:            "系统错误",
 	ERR_NO_SUCH_API:           "无此API",
+
+	// User
+	ERR_USER_NOT_EXIST:      "用户不存在",
+	ERR_USER_ALREADY_EXIST:  "用户已经存在",
+	ERR_PASSWORD_DONT_MATCH: "用户和密码不匹配",
+
+	// User group
+	ERR_USERGROUP_NOT_EXIST:     "用户组不存在",
+	ERR_USERGROUP_ALREADY_EXIST: "用户组已经存在",
 }
 
 type MirageError struct {

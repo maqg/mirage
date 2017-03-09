@@ -3,6 +3,7 @@ package api
 import (
 	"fmt"
 	"octlink/mirage/src/modules/usergroup"
+	"octlink/mirage/src/utils"
 	"octlink/mirage/src/utils/merrors"
 	"octlink/mirage/src/utils/octlog"
 	"octlink/mirage/src/utils/uuid"
@@ -62,8 +63,8 @@ func APIShowAllUserGroup(paras *ApiParas) *ApiResponse {
 
 	resp := new(ApiResponse)
 
-	offset := ParasInt(paras.InParas.Paras["start"])
-	limit := ParasInt(paras.InParas.Paras["limit"])
+	offset := utils.ParasInt(paras.InParas.Paras["start"])
+	limit := utils.ParasInt(paras.InParas.Paras["limit"])
 
 	rows, err := paras.Db.Query("SELECT ID,UG_Name,UG_AccountId,"+
 		"UG_CreateTime,UG_LastSync,UG_Description "+

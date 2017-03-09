@@ -2,6 +2,7 @@ package account
 
 import (
 	"fmt"
+	"octlink/mirage/src/modules/session"
 	"octlink/mirage/src/utils/config"
 	"octlink/mirage/src/utils/merrors"
 	"octlink/mirage/src/utils/octlog"
@@ -49,6 +50,10 @@ func (account *Account) Brief() map[string]interface{} {
 	b["id"] = account.Id
 	b["name"] = account.Name
 	return b
+}
+
+func (account *Account) Login(db *octmysql.OctMysql, password string) *session.Session {
+	return nil
 }
 
 func (account *Account) Add(db *octmysql.OctMysql) int {
