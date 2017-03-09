@@ -133,7 +133,14 @@ func APIShowAllUser(paras *ApiParas) *ApiResponse {
 		userList = append(userList, user)
 	}
 
-	resp.Data = userList
+	userCount := user.GetUserCount(paras.Db)
+
+	result := make(map[string]interface{}, 3)
+	result["total"] = userCount
+	result["count"] = len(userList)
+	result["data"] = userList
+
+	resp.Data = result
 
 	return resp
 }

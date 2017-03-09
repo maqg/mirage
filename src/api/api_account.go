@@ -152,8 +152,15 @@ func APIShowAllAccount(paras *ApiParas) *ApiResponse {
 		accountList = append(accountList, account)
 	}
 
-	resp.Data = accountList
-	resp.Error = 0
+	count := account.GetAccountCount(paras.Db)
+
+	result := make(map[string]interface{}, 3)
+	result["total"] = count
+	result["count"] = len(accountList)
+	result["data"] = accountList
+
+	resp.Data = result
+
 	return resp
 }
 

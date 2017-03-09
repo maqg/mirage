@@ -36,6 +36,22 @@ func (user *User) Brief() map[string]interface{} {
 	return u
 }
 
+func GetUserCount(db *octmysql.OctMysql) int {
+
+	var count int = 0
+
+	row := db.QueryRow("SELECT COUNT(1) FROM tb_user")
+	err := row.Scan(&count)
+	if err != nil {
+		logger.Errorf("get count for user error %s", err.Error())
+		return 0
+	}
+
+	octlog.Debug("got %d users", count)
+
+	return count
+}
+
 func (user *User) Add(db *octmysql.OctMysql) int {
 
 	sql := fmt.Sprintf("INSERT INTO %s (ID, U_Name, U_Type, "+

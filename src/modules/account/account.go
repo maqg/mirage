@@ -31,6 +31,22 @@ type Account struct {
 	Desc        string `json:"desc"`
 }
 
+func GetAccountCount(db *octmysql.OctMysql) int {
+
+	var count int = 0
+
+	row := db.QueryRow("SELECT COUNT(1) FROM tb_account")
+	err := row.Scan(&count)
+	if err != nil {
+		logger.Errorf("get count for account error %s", err.Error())
+		return 0
+	}
+
+	octlog.Debug("got %d accounts", count)
+
+	return count
+}
+
 func (account *Account) Brief() map[string]interface{} {
 	b := make(map[string]interface{}, 2)
 	b["id"] = account.Id
