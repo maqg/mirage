@@ -17,10 +17,15 @@ func InitLog(level int) {
 type User struct {
 	Id          string `json:"id"`
 	Name        string `json:"name"`
-	State       int    `json:"state"`
-	Type        int    `json:"type"`
+	State       int    `json:"state"` // 1 for enable,0 for disabled
+	Type        int    `json:"type"`  // 1 for terminal user
 	Email       string `json:"email"`
 	PhoneNumber string `json:"phoneNumber"`
+	Password    string `json:"passord"`
+	LastLogin   int64  `json:"lastLogin"`
+	CreateTime  int64  `json:"createTime"`
+	LastSync    int64  `json:"lastSync"`
+	Desc        string `json:"desc"`
 }
 
 func (user *User) UserBrief() map[string]interface{} {
@@ -33,8 +38,14 @@ func (user *User) UserBrief() map[string]interface{} {
 
 func (user *User) Add(db *octmysql.OctMysql) int {
 
-	sql := fmt.Sprintf("INSERT INTO %s (ID, U_Name, U_Type) VALUES ('%s', '%s', '%d')",
-		config.TB_USER, user.Id, user.Name, user.Type)
+	sql := fmt.Sprintf("INSERT INTO %s (ID, U_Name, U_Type, "+
+		"U_Email, U_PhoneNumber, U_Password, U_CreateTime, "+
+		"U_Description) VALUES ('%s', '%s', '%d', '%s', '%s', "+
+		"'%d', '%d', '%s')",
+		config.TB_USER,
+		user.Id, user.Name, user.Type,
+		user.Email, user.PhoneNumber, user.Password,
+		user.CreateTime, user.Desc)
 
 	_, err := db.Exec(sql)
 	if err != nil {
@@ -57,4 +68,46 @@ func (user *User) Delete(db *octmysql.OctMysql) int {
 	octlog.Debug(sql)
 
 	return 0
+}
+
+func FindUserByName(db *octmysql.OctMysql, name string) *User {
+
+	row := db.QueryRow("SELECT ID,U_Name,U_State,U_Type,U_Email,U_PhoneNumber,"+
+		"U_Description,U_CreateTime,U_LastLogin,U_LastSync "+
+		"FROM tb_user WHERE U_Name = ? LIMIT 1", name)
+
+	user := new(User)
+
+	err := row.Scan(&user.Id, &user.Name, &user.State,
+		&user.Type, &user.Email, &user.PhoneNumber, &user.Desc,
+		&user.CreateTime, &user.LastLogin, &user.LastSync)
+	if err != nil {
+		logger.Errorf("Find account %s error %s", name, err.Error())
+		return nil
+	}
+
+	octlog.Debug("id %s, name :%s", user.Id, user.Name)
+
+	return user
+}
+
+func FindUser(db *octmysql.OctMysql, id string) *User {
+
+	row := db.QueryRow("SELECT ID,U_Name,U_State,U_Type,U_Email,U_PhoneNumber,"+
+		"U_Description,U_CreateTime,U_LastLogin,U_LastSync "+
+		"FROM tb_user WHERE ID = ? LIMIT 1", id)
+
+	user := new(User)
+
+	err := row.Scan(&user.Id, &user.Name, &user.State,
+		&user.Type, &user.Email, &user.PhoneNumber, &user.Desc,
+		&user.CreateTime, &user.LastLogin, &user.LastSync)
+	if err != nil {
+		logger.Errorf("Find account %s error %s", id, err.Error())
+		return nil
+	}
+
+	octlog.Debug("id %s, name :%s", user.Id, user.Name)
+
+	return user
 }

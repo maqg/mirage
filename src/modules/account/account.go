@@ -10,6 +10,9 @@ import (
 
 var logger *octlog.LogConfig
 
+var ACCOUNT_STATE_ENABLE = 1
+var ACCOUNT_STATE_DISABLE = 0
+
 func InitLog(level int) {
 	logger = octlog.InitLogConfig("account.log", level)
 }
@@ -29,21 +32,20 @@ type Account struct {
 }
 
 func (account *Account) Brief() map[string]interface{} {
-
-	u := make(map[string]interface{}, 2)
-
-	u["id"] = account.Id
-	u["name"] = account.Name
-
-	return u
+	b := make(map[string]interface{}, 2)
+	b["id"] = account.Id
+	b["name"] = account.Name
+	return b
 }
 
 func (account *Account) Add(db *octmysql.OctMysql) int {
 
-	sql := fmt.Sprintf("INSERT INTO %s (ID, U_Name, U_Type, U_Email, U_PhoneNumber,"+
-		"U_Password, U_CreateTime, U_Description) "+
-		"VALUES ('%s', '%s', '%d')",
-		config.TB_ACCOUNT, account.Id, account.Name, account.Type,
+	sql := fmt.Sprintf("INSERT INTO %s (ID, U_Name, U_Type, "+
+		"U_Email, U_PhoneNumber, U_Password, U_CreateTime, "+
+		"U_Description) VALUES ('%s', '%s', '%d', '%s', '%s', "+
+		"'%d', '%d', '%s')",
+		config.TB_ACCOUNT,
+		account.Id, account.Name, account.Type,
 		account.Email, account.PhoneNumber, account.Password,
 		account.CreateTime, account.Desc)
 
@@ -58,7 +60,9 @@ func (account *Account) Add(db *octmysql.OctMysql) int {
 
 func (account *Account) Delete(db *octmysql.OctMysql) int {
 
-	sql := fmt.Sprintf("DELETE FROM %s WHERE ID='%s'", config.TB_ACCOUNT, account.Id)
+	sql := fmt.Sprintf("DELETE FROM %s WHERE ID='%s'",
+		config.TB_ACCOUNT, account.Id)
+
 	_, err := db.Exec(sql)
 	if err != nil {
 		logger.Errorf("delete account %s error", account.Id)
@@ -68,4 +72,45 @@ func (account *Account) Delete(db *octmysql.OctMysql) int {
 	octlog.Debug(sql)
 
 	return 0
+}
+
+func FindAccountByName(db *octmysql.OctMysql, name string) *Account {
+
+	row := db.QueryRow("SELECT ID,U_Name,U_State,U_Type,U_Email,U_PhoneNumber,"+
+		"U_Description,U_CreateTime,U_LastLogin,U_LastSync "+
+		"FROM tb_account WHERE U_Name = ? LIMIT 1", name)
+
+	account := new(Account)
+
+	err := row.Scan(&account.Id, &account.Name, &account.State,
+		&account.Type, &account.Email, &account.PhoneNumber, &account.Desc,
+		&account.CreateTime, &account.LastLogin, &account.LastSync)
+	if err != nil {
+		logger.Errorf("Find account %s error %s", name, err.Error())
+		return nil
+	}
+
+	octlog.Debug("id %s, name :%s", account.Id, account.Name)
+
+	return account
+}
+
+func FindAccount(db *octmysql.OctMysql, id string) *Account {
+
+	row := db.QueryRow("SELECT ID,U_Name,U_State,U_Type,U_Email,U_PhoneNumber,"+
+		"U_Description,U_CreateTime,U_LastLogin,U_LastSync "+
+		"FROM tb_account WHERE ID = ? LIMIT 1", id)
+
+	account := new(Account)
+	err := row.Scan(&account.Id, &account.Name, &account.State,
+		&account.Type, &account.Email, &account.PhoneNumber, &account.Desc,
+		&account.CreateTime, &account.LastLogin, &account.LastSync)
+	if err != nil {
+		logger.Errorf("Find account %s error %s", id, err.Error())
+		return nil
+	}
+
+	octlog.Debug("id %s, name :%s", account.Id, account.Name)
+
+	return account
 }
