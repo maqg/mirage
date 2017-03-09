@@ -184,7 +184,7 @@ func InitApiService() {
 	GApiServices["octlink.mirage.center.account.APIUpdateAccountPassword"] = service
 
 	// --------------------
-	// for APIAddUser
+	// for APIAddUserGroup
 	// --------------------
 	service = new(ApiService)
 	service.Name = "APIAddUserGroup"
