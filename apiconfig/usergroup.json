@@ -1,0 +1,92 @@
+{
+   	"APIAddUser": {
+		"name": "添加用户组",
+		"handler": "AddUserGroup",
+		"paras": [
+			{
+				"name": "name",
+				"type": "string",
+				"desc": "组名称",
+				"default": "NotNull"
+			},
+			{
+				"name": "accountId",
+				"type": "string",
+				"desc": "账号Id",
+				"default": "NotNull"
+			},
+			{
+				"name": "desc",
+				"type": "string",
+				"desc": "描述信息",
+				"default": ""
+			}
+		]
+	},
+
+	"APIShowUserGroup": {
+		"name": "获取单个用户组",
+		"handler": "ShowUserGroup",
+		"paras": [
+			{
+				"name": "id",
+				"type": "string",
+				"desc": "UUID",
+				"default": "NotNull"
+			}
+		]
+	},
+
+	"APIShowAllUserGroup": {
+		"name": "获取所有用户组信息",
+		"paras": [
+			{
+				"name": "start",
+				"type": "int",
+				"desc": "开始位置",
+				"default": 0
+			},
+			{
+				"name": "limit",
+				"type": "int",
+				"desc": "获取条目",
+				"default": 15
+			}
+		]
+	},
+
+	"APIShowUserGroupList": {
+		"name": "获取用户组列表",
+		"paras": []
+	},
+
+	"APIDeleteUserGroup": {
+		"name": "删除单个用户组",
+		"paras": [
+			{
+				"name": "id",
+				"type": "string",
+				"desc": "UUID",
+				"default": "NotNull"
+			}
+		]
+	},
+
+	"APIUpdateUserGroup": {
+		"name": "编辑用户组",
+		"paras": [
+			{
+				"name": "id",
+				"type": "string",
+				"desc": "账号的UUID",
+				"default": "NotNull"
+			},
+			{
+				"name": "desc",
+				"type": "string",
+				"desc": "描述信息",
+				"default": ""
+			}
+		]
+	}
+}
