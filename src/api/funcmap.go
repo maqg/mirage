@@ -24,14 +24,6 @@ func InitApiService() {
 	GApiServices["octlink.mirage.center.user.APIDeleteUser"] = service
 
 	// --------------------
-	// for APILogOut
-	// --------------------
-	service = new(ApiService)
-	service.Name = "APILogOut"
-	service.Handler = APILogOut
-	GApiServices["octlink.mirage.center.user.APILogOut"] = service
-
-	// --------------------
 	// for APILoginByUser
 	// --------------------
 	service = new(ApiService)
@@ -88,6 +80,14 @@ func InitApiService() {
 	GApiServices["octlink.mirage.center.user.APIUpdateUserPassword"] = service
 
 	// --------------------
+	// for APIUserLogOut
+	// --------------------
+	service = new(ApiService)
+	service.Name = "APIUserLogOut"
+	service.Handler = APIUserLogOut
+	GApiServices["octlink.mirage.center.user.APIUserLogOut"] = service
+
+	// --------------------
 	// for APIAddHost
 	// --------------------
 	service = new(ApiService)
@@ -104,6 +104,14 @@ func InitApiService() {
 	GApiServices["octlink.mirage.center.host.APIDeleteHost"] = service
 
 	// --------------------
+	// for APIAccountLogOut
+	// --------------------
+	service = new(ApiService)
+	service.Name = "APIAccountLogOut"
+	service.Handler = APIAccountLogOut
+	GApiServices["octlink.mirage.center.account.APIAccountLogOut"] = service
+
+	// --------------------
 	// for APIAddAccount
 	// --------------------
 	service = new(ApiService)
@@ -118,14 +126,6 @@ func InitApiService() {
 	service.Name = "APIDeleteAccount"
 	service.Handler = APIDeleteAccount
 	GApiServices["octlink.mirage.center.account.APIDeleteAccount"] = service
-
-	// --------------------
-	// for APILogOut
-	// --------------------
-	service = new(ApiService)
-	service.Name = "APILogOut"
-	service.Handler = APILogOut
-	GApiServices["octlink.mirage.center.account.APILogOut"] = service
 
 	// --------------------
 	// for APILoginByAccount
@@ -182,4 +182,52 @@ func InitApiService() {
 	service.Name = "APIUpdateAccountPassword"
 	service.Handler = APIUpdateAccountPassword
 	GApiServices["octlink.mirage.center.account.APIUpdateAccountPassword"] = service
+
+	// --------------------
+	// for APIAddUser
+	// --------------------
+	service = new(ApiService)
+	service.Name = "APIAddUser"
+	service.Handler = APIAddUser
+	GApiServices["octlink.mirage.center.usergroup.APIAddUser"] = service
+
+	// --------------------
+	// for APIDeleteUserGroup
+	// --------------------
+	service = new(ApiService)
+	service.Name = "APIDeleteUserGroup"
+	service.Handler = APIDeleteUserGroup
+	GApiServices["octlink.mirage.center.usergroup.APIDeleteUserGroup"] = service
+
+	// --------------------
+	// for APIShowAllUserGroup
+	// --------------------
+	service = new(ApiService)
+	service.Name = "APIShowAllUserGroup"
+	service.Handler = APIShowAllUserGroup
+	GApiServices["octlink.mirage.center.usergroup.APIShowAllUserGroup"] = service
+
+	// --------------------
+	// for APIShowUserGroup
+	// --------------------
+	service = new(ApiService)
+	service.Name = "APIShowUserGroup"
+	service.Handler = APIShowUserGroup
+	GApiServices["octlink.mirage.center.usergroup.APIShowUserGroup"] = service
+
+	// --------------------
+	// for APIShowUserGroupList
+	// --------------------
+	service = new(ApiService)
+	service.Name = "APIShowUserGroupList"
+	service.Handler = APIShowUserGroupList
+	GApiServices["octlink.mirage.center.usergroup.APIShowUserGroupList"] = service
+
+	// --------------------
+	// for APIUpdateUserGroup
+	// --------------------
+	service = new(ApiService)
+	service.Name = "APIUpdateUserGroup"
+	service.Handler = APIUpdateUserGroup
+	GApiServices["octlink.mirage.center.usergroup.APIUpdateUserGroup"] = service
 }
