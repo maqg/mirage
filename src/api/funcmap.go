@@ -187,9 +187,9 @@ func InitApiService() {
 	// for APIAddUser
 	// --------------------
 	service = new(ApiService)
-	service.Name = "APIAddUser"
-	service.Handler = APIAddUser
-	GApiServices["octlink.mirage.center.usergroup.APIAddUser"] = service
+	service.Name = "APIAddUserGroup"
+	service.Handler = APIAddUserGroup
+	GApiServices["octlink.mirage.center.usergroup.APIAddUserGroup"] = service
 
 	// --------------------
 	// for APIDeleteUserGroup

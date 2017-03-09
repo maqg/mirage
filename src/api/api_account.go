@@ -178,7 +178,7 @@ func APIUpdateAccountPassword(paras *ApiParas) *ApiResponse {
 	return resp
 }
 
-func APILogOut(paras *ApiParas) *ApiResponse {
+func APIAccountLogOut(paras *ApiParas) *ApiResponse {
 	octlog.Debug("running in APILogOut\n")
 	resp := new(ApiResponse)
 	resp.Error = 0

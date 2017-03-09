@@ -35,12 +35,12 @@ func APIShowUserGroup(paras *ApiParas) *ApiResponse {
 
 	resp := new(ApiResponse)
 
-	userId := paras.InParas.Paras["id"].(string)
-	temp := usergroup.FindGroup(paras.Db, userId)
+	groupId := paras.InParas.Paras["id"].(string)
+	temp := usergroup.FindGroup(paras.Db, groupId)
 
 	if temp == nil {
 		resp.Error = merrors.ERR_SEGMENT_NOT_EXIST
-		resp.ErrorLog = fmt.Sprintf("group %s not found", userId)
+		resp.ErrorLog = fmt.Sprintf("group %s not found", groupId)
 		return resp
 	}
 
@@ -66,7 +66,7 @@ func APIShowAllUserGroup(paras *ApiParas) *ApiResponse {
 	limit := ParasInt(paras.InParas.Paras["limit"])
 
 	rows, err := paras.Db.Query("SELECT ID,UG_Name,UG_AccountId,"+
-		"U_CreateTime,U_LastSync,U_Description "+
+		"UG_CreateTime,UG_LastSync,UG_Description "+
 		"FROM tb_usergroup LIMIT ?,?", offset, limit)
 	if err != nil {
 		logger.Errorf("query user group error %s\n", err.Error())
@@ -122,7 +122,7 @@ func APIShowUserGroupList(paras *ApiParas) *ApiResponse {
 
 	resp := new(ApiResponse)
 
-	rows, err := paras.Db.Query("SELECT ID,U_Name FROM tb_usergroup")
+	rows, err := paras.Db.Query("SELECT ID,UG_Name FROM tb_usergroup")
 	if err != nil {
 		logger.Errorf("query user group list error %s\n", err.Error())
 		resp.Error = merrors.ERR_DB_ERR

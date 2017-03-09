@@ -101,8 +101,8 @@ func FindGroupByName(db *octmysql.OctMysql, name string) *UserGroup {
 
 func FindGroup(db *octmysql.OctMysql, id string) *UserGroup {
 
-	row := db.QueryRow("SELECT ID,U_Name,U_State,U_Type,U_Email,U_PhoneNumber,"+
-		"U_Description,U_CreateTime,U_LastSync "+
+	row := db.QueryRow("SELECT ID,UG_Name,UG_AccountId,"+
+		"UG_CreateTime,UG_LastSync, UG_Description "+
 		"FROM tb_usergroup WHERE ID = ? LIMIT 1", id)
 
 	group := new(UserGroup)

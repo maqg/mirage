@@ -1,7 +1,6 @@
 {
-   	"APIAddUser": {
+   	"APIAddUserGroup": {
 		"name": "添加用户组",
-		"handler": "AddUserGroup",
 		"paras": [
 			{
 				"name": "name",
