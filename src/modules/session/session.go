@@ -23,7 +23,8 @@ func InitLog(level int) {
 
 type Session struct {
 	Id         string `json:"id"`
-	User       string `json:"user"`
+	UserId     string `json:"userId"`
+	UserName   string `json:"userName"`
 	CreateTime int64  `json:"createTime"`
 	LastSync   int64  `json:"lastSync"`
 	ExpireTime int64  `json:"expireTime"`
@@ -31,11 +32,13 @@ type Session struct {
 }
 
 func (session *Session) Insert(db *octmysql.OctMysql) int {
-	sql := fmt.Sprintf("INSERT INTO %s (ID,S_User,S_CreateTime,"+
-		"S_LastSync,S_ExpireTime) VALUES ('%s','%s','%d','%d','%d');",
+
+	sql := fmt.Sprintf("INSERT INTO %s (ID,S_UserId,S_UserName,S_CreateTime,"+
+		"S_LastSync,S_ExpireTime) VALUES ('%s','%s','%s','%d','%d','%d');",
 		config.TB_SESSION,
 		session.Id,
-		session.User,
+		session.UserId,
+		session.UserName,
 		session.CreateTime,
 		session.LastSync,
 		session.ExpireTime)
@@ -49,20 +52,39 @@ func (session *Session) Insert(db *octmysql.OctMysql) int {
 	return 0
 }
 
-func GetSession(db *octmysql.OctMysql) *Session {
+func (session *Session) Delete(db *octmysql.OctMysql) {
+	sql := fmt.Sprintf("DELETE FROM %s WHERE ID='%s';",
+		config.TB_SESSION, session.Id)
+	db.Exec(sql)
+}
+
+func NewSession(db *octmysql.OctMysql, userId string, userName string) *Session {
+
 	sess := new(Session)
 
 	now := int64(time.Now().Unix())
 
+	sess.Id = uuid.Generate().Simple()
+
 	sess.CreateTime = now
 	sess.LastSync = now
 	sess.ExpireTime = now + SESSION_TIMEOUT
-	sess.Id = uuid.Generate().Simple()
-	sess.User = "admin"
+	sess.UserName = userName
+	sess.UserId = userId
 
-	sess.Insert(db)
+	err := sess.Insert(db)
+	if err != 0 {
+		octlog.Error("Insert new session %s,%s Error", userId, userName)
+		return nil
+	}
 
 	return sess
+}
+
+func ClearSession(db *octmysql.OctMysql, userId string) {
+	sql := fmt.Sprintf("DELETE FROM %s WHERE S_UserId='%s';",
+		config.TB_SESSION, userId)
+	db.Exec(sql)
 }
 
 func (session *Session) Update(db *octmysql.OctMysql, sid string) int {
@@ -91,14 +113,16 @@ func (session *Session) Update(db *octmysql.OctMysql, sid string) int {
 
 func FindSession(db *octmysql.OctMysql, sid string) *Session {
 
-	sql := fmt.Sprintf("SELECT ID,S_User,S_Cookie,S_CreateTime,S_LastSync,S_ExpireTime "+
+	sql := fmt.Sprintf("SELECT ID,S_UserId,S_UserName,S_Cookie,"+
+		"S_CreateTime,S_LastSync,S_ExpireTime "+
 		"FROM %s WHERE ID='%s' LIMIT 1;", config.TB_SESSION, sid)
 	row := db.QueryRow(sql)
 
 	session := new(Session)
 
-	err := row.Scan(&session.Id, &session.User, &session.Cookie,
-		&session.CreateTime, &session.LastSync, &session.ExpireTime)
+	err := row.Scan(&session.Id, &session.UserId, &session.UserName,
+		&session.Cookie, &session.CreateTime, &session.LastSync,
+		&session.ExpireTime)
 	if err != nil {
 		logger.Errorf("Find session %s error %s, [%s]", sid,
 			err.Error(), sql)
@@ -107,7 +131,7 @@ func FindSession(db *octmysql.OctMysql, sid string) *Session {
 
 	session.Update(db, sid)
 
-	octlog.Debug("found session, id:%s, user:%s", session.Id, session.User)
+	octlog.Debug("found session, id:%s, user:%s", session.Id, session.UserName)
 
 	return session
 }
