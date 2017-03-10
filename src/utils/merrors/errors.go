@@ -19,9 +19,9 @@ const (
 	ERR_USER_NOT_EXIST
 	ERR_USER_ALREADY_EXIST
 	ERR_PASSWORD_DONT_MATCH
+	ERR_USER_NOT_LOGIN
 
 	// User Group
-
 	ERR_USERGROUP_NOT_EXIST
 	ERR_USERGROUP_ALREADY_EXIST
 )
@@ -45,6 +45,7 @@ var GErrors = map[int]string{
 	ERR_USER_NOT_EXIST:      "User Not Exist",
 	ERR_USER_ALREADY_EXIST:  "User Already Exist",
 	ERR_PASSWORD_DONT_MATCH: "User And Password Not Match",
+	ERR_USER_NOT_LOGIN:      "User Not Login",
 
 	// User group
 	ERR_USERGROUP_NOT_EXIST:     "User Group Not Exist",
@@ -70,6 +71,7 @@ var GErrorsCN = map[int]string{
 	ERR_USER_NOT_EXIST:      "用户不存在",
 	ERR_USER_ALREADY_EXIST:  "用户已经存在",
 	ERR_PASSWORD_DONT_MATCH: "用户和密码不匹配",
+	ERR_USER_NOT_LOGIN:      "用户未登录",
 
 	// User group
 	ERR_USERGROUP_NOT_EXIST:     "用户组不存在",

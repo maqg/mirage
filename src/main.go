@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"octlink/mirage/src/api"
 	"octlink/mirage/src/modules/account"
+	"octlink/mirage/src/modules/session"
 	"octlink/mirage/src/modules/user"
 	"octlink/mirage/src/modules/usergroup"
 	"octlink/mirage/src/utils"
@@ -22,6 +23,7 @@ func initLogConfig() {
 	user.InitLog(octlog.DEBUG_LEVEL)
 	account.InitLog(octlog.DEBUG_LEVEL)
 	usergroup.InitLog(octlog.DEBUG_LEVEL)
+	session.InitLog(octlog.DEBUG_LEVEL)
 }
 
 const (

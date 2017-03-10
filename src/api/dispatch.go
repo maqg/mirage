@@ -1,6 +1,7 @@
 package api
 
 import (
+	"octlink/mirage/src/modules/session"
 	"octlink/mirage/src/utils/httpresponse"
 	"octlink/mirage/src/utils/merrors"
 	"octlink/mirage/src/utils/octlog"
@@ -40,7 +41,7 @@ type InputParas struct {
 
 type ApiParas struct {
 	Proto   *ApiProto
-	User    string
+	Session *session.Session
 	InParas *InputParas
 	Db      *octmysql.OctMysql
 }
@@ -66,7 +67,7 @@ func GetApiService(key string) *ApiService {
 	return service
 }
 
-func getApiParas(c *gin.Context) *ApiParas {
+func getApiParas(c *gin.Context) (*ApiParas, int) {
 
 	var apiParas *ApiParas = new(ApiParas)
 
@@ -75,22 +76,32 @@ func getApiParas(c *gin.Context) *ApiParas {
 	octlog.Debug("got api %s\n", apiParas.InParas.Api)
 
 	if apiParas.InParas.Api == "" {
-		octlog.Error("got null api key\n")
-		return nil
+		octlog.Error("got null api\n")
+		return nil, merrors.ERR_NO_SUCH_API
 	}
 
 	proto := FindApiProto(apiParas.InParas.Api)
 	if proto == nil {
 		octlog.Error("no api proto found for %s\n",
 			apiParas.InParas.Api)
-		return nil
+		return nil, merrors.ERR_NO_SUCH_API
 	}
 
 	apiParas.Proto = proto
-	apiParas.User = "root"
 	apiParas.Db = new(octmysql.OctMysql)
 
-	return apiParas
+	sid := apiParas.InParas.Session["uuid"].(string)
+	octlog.Debug("found session id " + sid)
+
+	session := session.FindSession(apiParas.Db, sid)
+	if session == nil {
+		octlog.Error("not session found for this id" + sid)
+		return nil, merrors.ERR_USER_NOT_LOGIN
+	}
+
+	apiParas.Session = session
+
+	return apiParas, 0
 }
 
 func checkParas(apiParas *ApiParas) (int, string) {
@@ -121,10 +132,10 @@ func checkParas(apiParas *ApiParas) (int, string) {
 
 func (api *Api) ApiDispatch(c *gin.Context) {
 
-	paras := getApiParas(c)
+	paras, err := getApiParas(c)
 	if paras == nil {
 		octlog.Error("No match proto found\n")
-		httpresponse.Error(c, merrors.ERR_NO_SUCH_API, nil)
+		httpresponse.Error(c, err, nil)
 		return
 	}
 
