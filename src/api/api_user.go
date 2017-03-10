@@ -3,6 +3,7 @@ package api
 import (
 	"fmt"
 	"octlink/mirage/src/modules/user"
+	"octlink/mirage/src/utils"
 	"octlink/mirage/src/utils/merrors"
 	"octlink/mirage/src/utils/octlog"
 	"octlink/mirage/src/utils/uuid"
@@ -70,8 +71,8 @@ func APIShowAllUser(paras *ApiParas) *ApiResponse {
 
 	resp := new(ApiResponse)
 
-	offset := ParasInt(paras.InParas.Paras["start"])
-	limit := ParasInt(paras.InParas.Paras["limit"])
+	offset := utils.ParasInt(paras.InParas.Paras["start"])
+	limit := utils.ParasInt(paras.InParas.Paras["limit"])
 
 	rows, err := paras.Db.Query("SELECT ID,U_Name,U_State,U_Type,U_Email,U_PhoneNumber,"+
 		"U_Description,U_CreateTime,U_LastLogin,U_LastSync "+

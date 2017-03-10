@@ -20,3 +20,7 @@ func IsFileExist(filename string) bool {
 	}
 	return exist
 }
+
+func ParasInt(val interface{}) int {
+	return int(val.(float64))
+}

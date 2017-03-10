@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.47, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.22, for osx10.10 (x86_64)
 --
 -- Host: localhost    Database: dbmirage
 -- ------------------------------------------------------
--- Server version	5.5.47-0+deb7u1
+-- Server version	5.6.22
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -115,6 +115,38 @@ INSERT INTO `tb_relusergroup` VALUES (1,'00000000000000000000000000000000','e113
 UNLOCK TABLES;
 
 --
+-- Table structure for table `tb_session`
+--
+
+DROP TABLE IF EXISTS `tb_session`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tb_session` (
+  `ID` varchar(36) NOT NULL DEFAULT '',
+  `S_User` varchar(128) NOT NULL DEFAULT '',
+  `S_Cookie` varchar(1024) NOT NULL DEFAULT '',
+  `S_CreateTime` bigint(20) NOT NULL DEFAULT '0',
+  `S_LastSync` bigint(20) NOT NULL DEFAULT '0',
+  `S_ExpireTime` bigint(20) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`ID`),
+  KEY `tb_session_id` (`ID`),
+  KEY `tb_session_user` (`S_User`),
+  KEY `tb_session_createtime` (`S_CreateTime`),
+  KEY `tb_session_lastsync` (`S_LastSync`),
+  KEY `tb_session_expiretime` (`S_ExpireTime`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tb_session`
+--
+
+LOCK TABLES `tb_session` WRITE;
+/*!40000 ALTER TABLE `tb_session` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tb_session` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `tb_user`
 --
 
@@ -191,49 +223,47 @@ INSERT INTO `tb_usergroup` VALUES ('00000000000000000000000000000000','default',
 UNLOCK TABLES;
 
 --
--- Temporary table structure for view `v_account`
+-- Temporary view structure for view `v_account`
 --
 
 DROP TABLE IF EXISTS `v_account`;
 /*!50001 DROP VIEW IF EXISTS `v_account`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE TABLE `v_account` (
-  `Id` tinyint NOT NULL,
-  `Name` tinyint NOT NULL,
-  `State` tinyint NOT NULL,
-  `Type` tinyint NOT NULL,
-  `LastLogin` tinyint NOT NULL,
-  `LastSync` tinyint NOT NULL,
-  `CreateTime` tinyint NOT NULL,
-  `Password` tinyint NOT NULL,
-  `Email` tinyint NOT NULL,
-  `PhoneNumber` tinyint NOT NULL,
-  `Description` tinyint NOT NULL
-) ENGINE=MyISAM */;
+/*!50001 CREATE VIEW `v_account` AS SELECT 
+ 1 AS `Id`,
+ 1 AS `Name`,
+ 1 AS `State`,
+ 1 AS `Type`,
+ 1 AS `LastLogin`,
+ 1 AS `LastSync`,
+ 1 AS `CreateTime`,
+ 1 AS `Password`,
+ 1 AS `Email`,
+ 1 AS `PhoneNumber`,
+ 1 AS `Description`*/;
 SET character_set_client = @saved_cs_client;
 
 --
--- Temporary table structure for view `v_user`
+-- Temporary view structure for view `v_user`
 --
 
 DROP TABLE IF EXISTS `v_user`;
 /*!50001 DROP VIEW IF EXISTS `v_user`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE TABLE `v_user` (
-  `Id` tinyint NOT NULL,
-  `Name` tinyint NOT NULL,
-  `State` tinyint NOT NULL,
-  `Type` tinyint NOT NULL,
-  `LastLogin` tinyint NOT NULL,
-  `LastSync` tinyint NOT NULL,
-  `CreateTime` tinyint NOT NULL,
-  `Password` tinyint NOT NULL,
-  `Email` tinyint NOT NULL,
-  `PhoneNumber` tinyint NOT NULL,
-  `Description` tinyint NOT NULL
-) ENGINE=MyISAM */;
+/*!50001 CREATE VIEW `v_user` AS SELECT 
+ 1 AS `Id`,
+ 1 AS `Name`,
+ 1 AS `State`,
+ 1 AS `Type`,
+ 1 AS `LastLogin`,
+ 1 AS `LastSync`,
+ 1 AS `CreateTime`,
+ 1 AS `Password`,
+ 1 AS `Email`,
+ 1 AS `PhoneNumber`,
+ 1 AS `Description`*/;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -244,7 +274,6 @@ SET character_set_client = @saved_cs_client;
 -- Final view structure for view `v_account`
 --
 
-/*!50001 DROP TABLE IF EXISTS `v_account`*/;
 /*!50001 DROP VIEW IF EXISTS `v_account`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -263,7 +292,6 @@ SET character_set_client = @saved_cs_client;
 -- Final view structure for view `v_user`
 --
 
-/*!50001 DROP TABLE IF EXISTS `v_user`*/;
 /*!50001 DROP VIEW IF EXISTS `v_user`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -287,4 +315,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-07 17:37:11
+-- Dump completed on 2017-03-09 23:21:54

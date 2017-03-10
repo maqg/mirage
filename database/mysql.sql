@@ -87,3 +87,20 @@ ALTER TABLE tb_user ADD INDEX tb_user_password (U_Password);
 ALTER TABLE tb_user ADD INDEX tb_user_createtime (U_CreateTime);
 ALTER TABLE tb_user ADD INDEX tb_user_lastlogin (U_LastLogin);
 ALTER TABLE tb_user ADD INDEX tb_user_lastsync (U_LastSync);
+
+DROP TABLE IF EXISTS `tb_session`;
+CREATE TABLE `tb_session` (
+		`ID` VARCHAR(36) NOT NULL DEFAULT '',
+		`S_User` VARCHAR(128) NOT NULL DEFAULT '',
+		`S_Cookie` VARCHAR(1024) NOT NULL DEFAULT '',
+		`S_CreateTime` BIGINT NOT NULL DEFAULT '0',
+		`S_LastSync` BIGINT NOT NULL DEFAULT '0',
+		`S_ExpireTime` BIGINT NOT NULL DEFAULT '0',
+		PRIMARY KEY (`ID`)
+) ENGINE=Innodb DEFAULT CHARSET=utf8;
+ALTER TABLE tb_session ADD INDEX tb_session_id (ID);
+ALTER TABLE tb_session ADD INDEX tb_session_user (S_User);
+ALTER TABLE tb_session ADD INDEX tb_session_createtime (S_CreateTime);
+ALTER TABLE tb_session ADD INDEX tb_session_lastsync (S_LastSync);
+ALTER TABLE tb_session ADD INDEX tb_session_expiretime (S_ExpireTime);
+

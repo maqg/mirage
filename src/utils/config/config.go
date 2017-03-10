@@ -6,6 +6,7 @@ const (
 	TB_USERGROUP    = "tb_usergroup"
 	TB_ACCOUNT      = "tb_account"
 	TB_MISC         = "tb_misc"
+	TB_SESSION      = "tb_session"
 )
 
 const (

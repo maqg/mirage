@@ -3,14 +3,11 @@ package api
 import (
 	"fmt"
 	"octlink/mirage/src/modules/account"
+	"octlink/mirage/src/utils"
 	"octlink/mirage/src/utils/merrors"
 	"octlink/mirage/src/utils/octlog"
 	"octlink/mirage/src/utils/uuid"
 )
-
-func ParasInt(val interface{}) int {
-	return int(val.(float64))
-}
 
 func APIAddAccount(paras *ApiParas) *ApiResponse {
 	resp := new(ApiResponse)
@@ -25,7 +22,7 @@ func APIAddAccount(paras *ApiParas) *ApiResponse {
 	newAccount = new(account.Account)
 	newAccount.Id = uuid.Generate().Simple()
 	newAccount.Name = paras.InParas.Paras["account"].(string)
-	newAccount.Type = ParasInt(paras.InParas.Paras["type"])
+	newAccount.Type = utils.ParasInt(paras.InParas.Paras["type"])
 	newAccount.Email = paras.InParas.Paras["email"].(string)
 	newAccount.PhoneNumber = paras.InParas.Paras["phoneNumber"].(string)
 	newAccount.Password = paras.InParas.Paras["password"].(string)
@@ -37,14 +34,12 @@ func APIAddAccount(paras *ApiParas) *ApiResponse {
 }
 
 func APILoginByAccount(paras *ApiParas) *ApiResponse {
-	octlog.Debug("running in APILoginByAccount\n")
 	resp := new(ApiResponse)
 	resp.Error = 0
 	return resp
 }
 
 func APIShowAccount(paras *ApiParas) *ApiResponse {
-	octlog.Debug("running in APIShowAccount\n")
 	resp := new(ApiResponse)
 
 	accountId := paras.InParas.Paras["id"].(string)
@@ -64,9 +59,27 @@ func APIShowAccount(paras *ApiParas) *ApiResponse {
 }
 
 func APIUpdateAccount(paras *ApiParas) *ApiResponse {
-	octlog.Debug("running in APIUpdateAccount\n")
 	resp := new(ApiResponse)
-	resp.Error = 0
+
+	name := paras.InParas.Paras["account"].(string)
+
+	ac := account.FindAccountByName(paras.Db, name)
+	if ac == nil {
+		resp.Error = merrors.ERR_USER_NOT_EXIST
+		resp.ErrorLog = "User " + name + "Not Exist"
+		return resp
+	}
+
+	password := paras.InParas.Paras["password"].(string)
+
+	result := ac.Login(paras.Db, password)
+	if result == nil {
+		resp.Error = merrors.ERR_PASSWORD_DONT_MATCH
+		return resp
+	}
+
+	resp.Data = result
+
 	return resp
 }
 
@@ -123,8 +136,8 @@ func APIShowAllAccount(paras *ApiParas) *ApiResponse {
 
 	octlog.Debug("running in APIShowAllAccount\n")
 
-	offset := ParasInt(paras.InParas.Paras["start"])
-	limit := ParasInt(paras.InParas.Paras["limit"])
+	offset := utils.ParasInt(paras.InParas.Paras["start"])
+	limit := utils.ParasInt(paras.InParas.Paras["limit"])
 
 	rows, err := paras.Db.Query("SELECT ID,U_Name,U_State,U_Type,U_Email,U_PhoneNumber,"+
 		"U_Description,U_CreateTime,U_LastLogin,U_LastSync "+

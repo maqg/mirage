@@ -1,6 +1,7 @@
 package api
 
 import (
+	"octlink/mirage/src/modules/user"
 	"octlink/mirage/src/utils/octlog"
 	"octlink/mirage/src/utils/octmysql"
 	"testing"
@@ -35,7 +36,7 @@ func TestAdd(t *testing.T) {
 	inParas := new(InputParas)
 
 	inParas.Module = "user"
-	inParas.Api = "octlink.mirage.center.user.APIAddAccount"
+	inParas.Api = "octlink.mirage.center.user.APIAddUser"
 
 	// paras
 	inParas.Paras = make(map[string]interface{}, 4)
@@ -59,7 +60,7 @@ func TestDelete(t *testing.T) {
 	inParas := new(InputParas)
 
 	db := new(octmysql.OctMysql)
-	user := FindUserByName(db, "test")
+	user := user.FindUserByName(db, "test")
 	if user == nil {
 		t.Log("User test not exist")
 		return
