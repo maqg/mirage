@@ -1,6 +1,8 @@
 package account
 
 import (
+	"crypto/md5"
+	"encoding/hex"
 	"fmt"
 	"octlink/mirage/src/modules/session"
 	"octlink/mirage/src/utils/config"
@@ -13,6 +15,21 @@ var logger *octlog.LogConfig
 
 func InitLog(level int) {
 	logger = octlog.InitLogConfig("account.log", level)
+}
+
+func GetEncPassword(clearText string) string {
+
+	m := md5.New()
+
+	m.Write([]byte("Octopus"))
+	m.Write([]byte(clearText))
+	m.Write([]byte("Link"))
+
+	enc := hex.EncodeToString(m.Sum(nil))
+
+	octlog.Debug("got new enc password %s", enc)
+
+	return enc
 }
 
 type Account struct {
@@ -52,8 +69,26 @@ func (account *Account) Brief() map[string]interface{} {
 	return b
 }
 
-func (account *Account) Login(db *octmysql.OctMysql, password string) *session.Session {
-	return nil
+func (account *Account) Login(db *octmysql.OctMysql,
+	password string) *session.Session {
+
+	var accountId string
+
+	encPass := GetEncPassword(password)
+
+	sql := fmt.Sprintf("SELECT ID FROM %s WHERE U_Name='%s' AND U_Password='%s';",
+		config.TB_ACCOUNT, account.Name, encPass)
+
+	row := db.QueryRow(sql)
+	err := row.Scan(&accountId)
+	if err != nil {
+		logger.Errorf("Login account %s error %s", account.Name, err.Error())
+		return nil
+	}
+
+	session := session.NewSession(db, account.Id, account.Name)
+
+	return session
 }
 
 func (account *Account) Add(db *octmysql.OctMysql) int {

@@ -14,6 +14,7 @@ const (
 	ERR_SYSCALL_ERR
 	ERR_SYSTEM_ERR
 	ERR_NO_SUCH_API
+	ERR_NOT_IMPLEMENTED
 
 	// User
 	ERR_USER_NOT_EXIST
@@ -40,6 +41,7 @@ var GErrors = map[int]string{
 	ERR_SYSCALL_ERR:           "System Call Error",
 	ERR_SYSTEM_ERR:            "System Error",
 	ERR_NO_SUCH_API:           "No Such API",
+	ERR_NOT_IMPLEMENTED:       "Function not Implemented",
 
 	// User
 	ERR_USER_NOT_EXIST:      "User Not Exist",
@@ -66,6 +68,7 @@ var GErrorsCN = map[int]string{
 	ERR_SYSCALL_ERR:           "系统调用错误",
 	ERR_SYSTEM_ERR:            "系统错误",
 	ERR_NO_SUCH_API:           "无此API",
+	ERR_NOT_IMPLEMENTED:       "功能未实现",
 
 	// User
 	ERR_USER_NOT_EXIST:      "用户不存在",

@@ -54,7 +54,7 @@ CREATE TABLE `tb_account` (
 
 LOCK TABLES `tb_account` WRITE;
 /*!40000 ALTER TABLE `tb_account` DISABLE KEYS */;
-INSERT INTO `tb_account` VALUES ('00000000000000000000000000000000',1,7,0,0,0,'root','','','root',''),('42fa1e66ff5411e6b2dc60334b213917',1,7,0,0,0,'admin','','','admin','');
+INSERT INTO `tb_account` VALUES ('00000000000000000000000000000000',1,7,0,0,0,'root','','','26c501d0a825f48acc76ef6c784cdacc',''),('42fa1e66ff5411e6b2dc60334b213917',1,7,0,0,0,'admin','','','292f137f691469948acd0e72b141e373','');
 /*!40000 ALTER TABLE `tb_account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -188,7 +188,7 @@ CREATE TABLE `tb_user` (
 
 LOCK TABLES `tb_user` WRITE;
 /*!40000 ALTER TABLE `tb_user` DISABLE KEYS */;
-INSERT INTO `tb_user` VALUES ('e1132175ff5411e6913460334b213917','test',1,1,0,0,0,'test','','',''),('e1132175ff5411e6913460334b213918','test1',1,1,0,0,0,'test1','','',''),('e1132175ff5411e6913460334b213919','test2',1,1,0,0,0,'test2','','','');
+INSERT INTO `tb_user` VALUES ('e1132175ff5411e6913460334b213917','test',1,1,0,0,0,'050e7255a41627d5f9141cd9bea94357','','',''),('e1132175ff5411e6913460334b213918','test1',1,1,0,0,0,'8555f41950a8fe627b1fb13a50bcc26a','','',''),('e1132175ff5411e6913460334b213919','test2',1,1,0,0,0,'6c274b6b947fb3c65de6eb1a548e65cf','','','');
 /*!40000 ALTER TABLE `tb_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -318,4 +318,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-10 22:57:12
+-- Dump completed on 2017-03-11 23:14:23

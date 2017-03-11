@@ -3,6 +3,7 @@ package api
 import (
 	"fmt"
 	"octlink/mirage/src/modules/account"
+	"octlink/mirage/src/modules/session"
 	"octlink/mirage/src/utils"
 	"octlink/mirage/src/utils/merrors"
 	"octlink/mirage/src/utils/octlog"
@@ -34,8 +35,29 @@ func APIAddAccount(paras *ApiParas) *ApiResponse {
 }
 
 func APILoginByAccount(paras *ApiParas) *ApiResponse {
+
 	resp := new(ApiResponse)
-	resp.Error = 0
+
+	user := paras.InParas.Paras["account"].(string)
+	password := paras.InParas.Paras["password"].(string)
+
+	logger.Debugf("Login %s:%s", user, password)
+
+	account := account.FindAccountByName(paras.Db, user)
+	if account == nil {
+		logger.Errorf("account %s already exist\n", user)
+		resp.Error = merrors.ERR_USER_NOT_EXIST
+		return resp
+	}
+
+	session := account.Login(paras.Db, password)
+	if session == nil {
+		resp.Error = merrors.ERR_PASSWORD_DONT_MATCH
+		return resp
+	}
+
+	resp.Data = session
+
 	return resp
 }
 
@@ -192,8 +214,16 @@ func APIUpdateAccountPassword(paras *ApiParas) *ApiResponse {
 }
 
 func APIAccountLogOut(paras *ApiParas) *ApiResponse {
-	octlog.Debug("running in APILogOut\n")
+
 	resp := new(ApiResponse)
-	resp.Error = 0
+
+	sessionId := paras.InParas.Paras["sessionId"].(string)
+
+	session := session.FindSession(paras.Db, sessionId)
+	if session != nil {
+		session.Delete(paras.Db)
+		octlog.Warn("session %s:%s cleared", session.Id, session.UserName)
+	}
+
 	return resp
 }
