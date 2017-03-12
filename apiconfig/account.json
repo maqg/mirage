@@ -112,7 +112,7 @@
 		"paras": [
 			{
 				"name": "id",
-				"type": "listint",
+				"type": "string",
 				"desc": "账号的UUID",
 				"default": "NotNull"
 			},

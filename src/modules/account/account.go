@@ -9,6 +9,7 @@ import (
 	"octlink/mirage/src/utils/merrors"
 	"octlink/mirage/src/utils/octlog"
 	"octlink/mirage/src/utils/octmysql"
+	"time"
 )
 
 var logger *octlog.LogConfig
@@ -69,6 +70,71 @@ func (account *Account) Brief() map[string]interface{} {
 	return b
 }
 
+func (account *Account) ResetPassword(db *octmysql.OctMysql, password string) int {
+	encPass := GetEncPassword(password)
+
+	sql := fmt.Sprintf("UPDATE %s SET U_Password='%s',U_LastSync='%d' WHERE ID='%s';",
+		config.TB_ACCOUNT, encPass, int64(time.Now().Unix()), account.Id)
+
+	_, err := db.Exec(sql)
+	if err != nil {
+		logger.Errorf("reset password for %s error %s",
+			account.Name, sql)
+		return merrors.ERR_DB_ERR
+	}
+
+	return 0
+}
+
+func (account *Account) Update(db *octmysql.OctMysql) int {
+
+	sql := fmt.Sprintf("UPDATE %s SET U_Email='%s',U_PhoneNumber='%s', "+
+		"U_Description='%s',U_LastSync='%d' WHERE ID='%s';",
+		config.TB_ACCOUNT, account.Email,
+		account.PhoneNumber, account.Desc,
+		int64(time.Now().Unix()),
+		account.Id)
+
+	_, err := db.Exec(sql)
+	if err != nil {
+		logger.Errorf("update account %s error %s",
+			account.Name, sql)
+		return merrors.ERR_DB_ERR
+	}
+
+	return 0
+}
+
+func (account *Account) UpdateLogin(db *octmysql.OctMysql) int {
+
+	sql := fmt.Sprintf("UPDATE %s SET U_LastLogin='%d' WHERE ID='%s';",
+		config.TB_ACCOUNT, int64(time.Now().Unix()), account.Id)
+
+	_, err := db.Exec(sql)
+	if err != nil {
+		logger.Errorf("update Login %s error %s",
+			account.Name, sql)
+		return merrors.ERR_DB_ERR
+	}
+
+	return 0
+}
+
+func (account *Account) UpdateSyncTime(db *octmysql.OctMysql) int {
+
+	sql := fmt.Sprintf("UPDATE %s SET U_LastSync='%d' WHERE ID='%s';",
+		config.TB_ACCOUNT, int64(time.Now().Unix()), account.Id)
+
+	_, err := db.Exec(sql)
+	if err != nil {
+		logger.Errorf("update last sync %s error %s",
+			account.Name, sql)
+		return merrors.ERR_DB_ERR
+	}
+
+	return 0
+}
+
 func (account *Account) Login(db *octmysql.OctMysql,
 	password string) *session.Session {
 
@@ -86,9 +152,9 @@ func (account *Account) Login(db *octmysql.OctMysql,
 		return nil
 	}
 
-	session := session.NewSession(db, account.Id, account.Name)
+	account.UpdateLogin(db)
 
-	return session
+	return session.NewSession(db, account.Id, account.Name)
 }
 
 func (account *Account) Add(db *octmysql.OctMysql) int {

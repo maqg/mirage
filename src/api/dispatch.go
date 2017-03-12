@@ -67,8 +67,24 @@ func GetApiService(key string) *ApiService {
 	return service
 }
 
+var SessionExceptions = []string{
+	"octlink.mirage.center.account.APILoginByAccount",
+	"octlink.mirage.center.user.APILoginByUser",
+}
+
+func NeedSessionCheck(api string) bool {
+	for _, tmp_api := range SessionExceptions {
+		if api == tmp_api {
+			return false
+		}
+	}
+
+	return true
+}
+
 func getApiParas(c *gin.Context) (*ApiParas, int) {
 
+	var sid string
 	var apiParas *ApiParas = new(ApiParas)
 
 	c.BindJSON(&apiParas.InParas)
@@ -90,7 +106,11 @@ func getApiParas(c *gin.Context) (*ApiParas, int) {
 	apiParas.Proto = proto
 	apiParas.Db = new(octmysql.OctMysql)
 
-	sid := apiParas.InParas.Session["uuid"].(string)
+	if NeedSessionCheck(apiParas.InParas.Api) {
+		sid = apiParas.InParas.Session["uuid"].(string)
+	} else {
+		sid = session.SESSION_DEFAULT_ID
+	}
 	octlog.Debug("found session id " + sid)
 
 	session := session.FindSession(apiParas.Db, sid)

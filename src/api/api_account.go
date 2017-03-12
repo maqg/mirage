@@ -83,24 +83,24 @@ func APIShowAccount(paras *ApiParas) *ApiResponse {
 func APIUpdateAccount(paras *ApiParas) *ApiResponse {
 	resp := new(ApiResponse)
 
-	name := paras.InParas.Paras["account"].(string)
+	id := paras.InParas.Paras["id"].(string)
 
-	ac := account.FindAccountByName(paras.Db, name)
+	ac := account.FindAccount(paras.Db, id)
 	if ac == nil {
 		resp.Error = merrors.ERR_USER_NOT_EXIST
-		resp.ErrorLog = "User " + name + "Not Exist"
+		resp.ErrorLog = "User " + id + "Not Exist"
 		return resp
 	}
 
-	password := paras.InParas.Paras["password"].(string)
+	ac.Email = paras.InParas.Paras["email"].(string)
+	ac.PhoneNumber = paras.InParas.Paras["phoneNumber"].(string)
+	ac.Desc = paras.InParas.Paras["desc"].(string)
 
-	result := ac.Login(paras.Db, password)
-	if result == nil {
-		resp.Error = merrors.ERR_PASSWORD_DONT_MATCH
+	ret := ac.Update(paras.Db)
+	if ret != 0 {
+		resp.Error = ret
 		return resp
 	}
-
-	resp.Data = result
 
 	return resp
 }
@@ -200,9 +200,24 @@ func APIShowAllAccount(paras *ApiParas) *ApiResponse {
 }
 
 func APIResetAccountPassword(paras *ApiParas) *ApiResponse {
-	octlog.Debug("running in APIResetAccountPassword\n")
+
 	resp := new(ApiResponse)
-	resp.Error = 0
+
+	id := paras.InParas.Paras["id"].(string)
+	account := account.FindAccount(paras.Db, id)
+	if account == nil {
+		resp.Error = merrors.ERR_SEGMENT_NOT_EXIST
+		return resp
+	}
+
+	password := paras.InParas.Paras["password"].(string)
+
+	ret := account.ResetPassword(paras.Db, password)
+	if ret != 0 {
+		resp.Error = ret
+		return resp
+	}
+
 	return resp
 }
 
