@@ -86,6 +86,27 @@ func (account *Account) ResetPassword(db *octmysql.OctMysql, password string) in
 	return 0
 }
 
+func (account *Account) UpdatePassword(db *octmysql.OctMysql, oldPassword string,
+	newPassword string) int {
+
+	encPass := GetEncPassword(oldPassword)
+
+	var accountId string
+
+	sql := fmt.Sprintf("SELECT ID FROM %s WHERE U_Name='%s' AND U_Password='%s';",
+		config.TB_ACCOUNT, account.Name, encPass)
+
+	row := db.QueryRow(sql)
+	err := row.Scan(&accountId)
+	if err != nil {
+		logger.Errorf("user and old password not match %s error %s",
+			account.Name, err.Error())
+		return merrors.ERR_PASSWORD_DONT_MATCH
+	}
+
+	return account.ResetPassword(db, newPassword)
+}
+
 func (account *Account) Update(db *octmysql.OctMysql) int {
 
 	sql := fmt.Sprintf("UPDATE %s SET U_Email='%s',U_PhoneNumber='%s', "+

@@ -222,9 +222,26 @@ func APIResetAccountPassword(paras *ApiParas) *ApiResponse {
 }
 
 func APIUpdateAccountPassword(paras *ApiParas) *ApiResponse {
-	octlog.Debug("running in APIUpdateAccountPassword\n")
+
 	resp := new(ApiResponse)
-	resp.Error = 0
+
+	id := paras.InParas.Paras["id"].(string)
+	account := account.FindAccount(paras.Db, id)
+	if account == nil {
+		resp.Error = merrors.ERR_USER_NOT_EXIST
+		return resp
+	}
+
+	oldPassword := paras.InParas.Paras["oldPassword"].(string)
+	newPassword := paras.InParas.Paras["newPassword"].(string)
+
+	ret := account.UpdatePassword(paras.Db, oldPassword, newPassword)
+	if ret != 0 {
+		octlog.Warn("update password for %s error", account.Name)
+		resp.Error = ret
+		return resp
+	}
+
 	return resp
 }
 
