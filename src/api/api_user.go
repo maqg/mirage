@@ -21,6 +21,14 @@ func APIAddUser(paras *ApiParas) *ApiResponse {
 	}
 
 	gid := paras.InParas.Paras["groupId"].(string)
+	if gid == "" {
+		gid = paras.InParas.Session["uuid"].(string)
+	}
+	if gid == "" {
+		resp.Error = merrors.ERR_USERGROUP_NOT_EXIST
+		return resp
+	}
+
 	group := usergroup.FindGroup(paras.Db, gid)
 	if group == nil {
 		resp.Error = merrors.ERR_USERGROUP_NOT_EXIST

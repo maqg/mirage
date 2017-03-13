@@ -33,12 +33,6 @@
 				"default": ""
 			},
 			{
-				"name": "type",
-				"type": "int",
-				"desc": "账号类型",
-				"default": 3
-			},
-			{
 				"name": "desc",
 				"type": "string",
 				"desc": "描述信息",
