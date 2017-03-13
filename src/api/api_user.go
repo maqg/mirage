@@ -3,6 +3,7 @@ package api
 import (
 	"fmt"
 	"octlink/mirage/src/modules/user"
+	"octlink/mirage/src/modules/usergroup"
 	"octlink/mirage/src/utils"
 	"octlink/mirage/src/utils/merrors"
 	"octlink/mirage/src/utils/octlog"
@@ -19,6 +20,13 @@ func APIAddUser(paras *ApiParas) *ApiResponse {
 		return resp
 	}
 
+	gid := paras.InParas.Paras["groupId"].(string)
+	group := usergroup.FindGroup(paras.Db, gid)
+	if group == nil {
+		resp.Error = merrors.ERR_USERGROUP_NOT_EXIST
+		return resp
+	}
+
 	newUser = new(user.User)
 	newUser.Id = uuid.Generate().Simple()
 	newUser.Name = paras.InParas.Paras["account"].(string)
@@ -27,14 +35,37 @@ func APIAddUser(paras *ApiParas) *ApiResponse {
 	newUser.PhoneNumber = paras.InParas.Paras["phoneNumber"].(string)
 
 	resp.Error = newUser.Add(paras.Db)
+	if resp.Error == 0 {
+		group.AllowUser(paras.Db, newUser.Id)
+	}
 
 	return resp
 }
 
 func APILoginByUser(paras *ApiParas) *ApiResponse {
-	octlog.Debug("running in APILoginByUser\n")
+
 	resp := new(ApiResponse)
-	resp.Error = 0
+
+	uid := paras.InParas.Paras["account"].(string)
+	password := paras.InParas.Paras["password"].(string)
+
+	logger.Debugf("Login %s:%s", uid, password)
+
+	user := user.FindUserByName(paras.Db, uid)
+	if user == nil {
+		logger.Errorf("account %s already exist\n", uid)
+		resp.Error = merrors.ERR_USER_NOT_EXIST
+		return resp
+	}
+
+	session := user.Login(paras.Db, password)
+	if session == nil {
+		resp.Error = merrors.ERR_PASSWORD_DONT_MATCH
+		return resp
+	}
+
+	resp.Data = session
+
 	return resp
 }
 

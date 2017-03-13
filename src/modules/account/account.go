@@ -17,6 +17,13 @@ const (
 	ADMIN_ACCOUNT      = "42fa1e66ff5411e6b2dc60334b213917" // admin
 )
 
+const (
+	USER_TYPE_SUPERADMIN = 7
+	USER_TYPE_ADMIN      = 3
+	USER_TYPE_AUDIT      = 1
+	USER_TYPE_USER       = 0
+)
+
 var logger *octlog.LogConfig
 
 func InitLog(level int) {
@@ -174,7 +181,7 @@ func (account *Account) Login(db *octmysql.OctMysql,
 
 	account.UpdateLogin(db)
 
-	return session.NewSession(db, account.Id, account.Name)
+	return session.NewSession(db, account.Id, account.Name, account.Type)
 }
 
 func (account *Account) Add(db *octmysql.OctMysql) int {
