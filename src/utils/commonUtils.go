@@ -1,12 +1,16 @@
 package utils
 
 import (
-	"fmt"
 	"os"
+	"time"
 )
 
-func TestPrint() {
-	fmt.Printf("test print\n")
+const (
+	TIME_STR_FORMAT = "2006-01-02 15:04:05"
+)
+
+func Time2Str(timeVal int64) string {
+	return time.Unix(timeVal, 0).Format(TIME_STR_FORMAT)
 }
 
 func Version() string {
