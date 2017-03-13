@@ -80,6 +80,11 @@ func (account *Account) ResetPassword(db *octmysql.OctMysql, password string) in
 	return 0
 }
 
+func (account *Account) GroupCount(db *octmysql.OctMysql) int {
+	count, _ := db.Count(config.TB_USERGROUP, "WHERE UG_AccountId=?", account.Id)
+	return count
+}
+
 func (account *Account) UpdatePassword(db *octmysql.OctMysql, oldPassword string,
 	newPassword string) int {
 
@@ -197,6 +202,11 @@ func (account *Account) Delete(db *octmysql.OctMysql) int {
 	if account.Id == SUPERADMIN_ACCOUNT || account.Id == ADMIN_ACCOUNT {
 		octlog.Error("superadmin or admin account cannot be removed")
 		return merrors.ERR_UNACCP_PARAS
+	}
+
+	if account.GroupCount(db) != 0 {
+		logger.Errorf("Before delete account, groups should be null")
+		return merrors.ERR_USER_GROUPS_NOT_EMPTY
 	}
 
 	sql := fmt.Sprintf("DELETE FROM %s WHERE ID='%s'",

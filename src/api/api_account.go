@@ -148,7 +148,7 @@ func APIDeleteAccount(paras *ApiParas) *ApiResponse {
 		return resp
 	}
 
-	account.Delete(paras.Db)
+	resp.Error = account.Delete(paras.Db)
 
 	return resp
 }

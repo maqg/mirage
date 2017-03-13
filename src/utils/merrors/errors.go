@@ -21,10 +21,12 @@ const (
 	ERR_USER_ALREADY_EXIST
 	ERR_PASSWORD_DONT_MATCH
 	ERR_USER_NOT_LOGIN
+	ERR_USER_GROUPS_NOT_EMPTY
 
 	// User Group
 	ERR_USERGROUP_NOT_EXIST
 	ERR_USERGROUP_ALREADY_EXIST
+	ERR_USERGROUP_USERS_NOT_EMPTY
 )
 
 var GErrors = map[int]string{
@@ -44,14 +46,16 @@ var GErrors = map[int]string{
 	ERR_NOT_IMPLEMENTED:       "Function not Implemented",
 
 	// User
-	ERR_USER_NOT_EXIST:      "User Not Exist",
-	ERR_USER_ALREADY_EXIST:  "User Already Exist",
-	ERR_PASSWORD_DONT_MATCH: "User And Password Not Match",
-	ERR_USER_NOT_LOGIN:      "User Not Login",
+	ERR_USER_NOT_EXIST:        "User Not Exist",
+	ERR_USER_ALREADY_EXIST:    "User Already Exist",
+	ERR_PASSWORD_DONT_MATCH:   "User And Password Not Match",
+	ERR_USER_NOT_LOGIN:        "User Not Login",
+	ERR_USER_GROUPS_NOT_EMPTY: "Groups under Account must be empty",
 
 	// User group
-	ERR_USERGROUP_NOT_EXIST:     "User Group Not Exist",
-	ERR_USERGROUP_ALREADY_EXIST: "User Group Already Exist",
+	ERR_USERGROUP_NOT_EXIST:       "User Group Not Exist",
+	ERR_USERGROUP_ALREADY_EXIST:   "User Group Already Exist",
+	ERR_USERGROUP_USERS_NOT_EMPTY: "Users under Group must be empty",
 }
 
 var GErrorsCN = map[int]string{
@@ -71,14 +75,16 @@ var GErrorsCN = map[int]string{
 	ERR_NOT_IMPLEMENTED:       "功能未实现",
 
 	// User
-	ERR_USER_NOT_EXIST:      "用户不存在",
-	ERR_USER_ALREADY_EXIST:  "用户已经存在",
-	ERR_PASSWORD_DONT_MATCH: "用户和密码不匹配",
-	ERR_USER_NOT_LOGIN:      "用户未登录",
+	ERR_USER_NOT_EXIST:        "用户不存在",
+	ERR_USER_ALREADY_EXIST:    "用户已经存在",
+	ERR_PASSWORD_DONT_MATCH:   "用户和密码不匹配",
+	ERR_USER_NOT_LOGIN:        "用户未登录",
+	ERR_USER_GROUPS_NOT_EMPTY: "该账号下的用户组不为空",
 
 	// User group
-	ERR_USERGROUP_NOT_EXIST:     "用户组不存在",
-	ERR_USERGROUP_ALREADY_EXIST: "用户组已经存在",
+	ERR_USERGROUP_NOT_EXIST:       "用户组不存在",
+	ERR_USERGROUP_ALREADY_EXIST:   "用户组已经存在",
+	ERR_USERGROUP_USERS_NOT_EMPTY: "该用户组下的用户不为空",
 }
 
 type MirageError struct {

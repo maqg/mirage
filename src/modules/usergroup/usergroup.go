@@ -85,6 +85,11 @@ func (group *UserGroup) Delete(db *octmysql.OctMysql) int {
 		return merrors.ERR_UNACCP_PARAS
 	}
 
+	if group.UserCount(db) != 0 {
+		logger.Errorf("Before delete group, users should be null")
+		return merrors.ERR_USERGROUP_USERS_NOT_EMPTY
+	}
+
 	sql := fmt.Sprintf("DELETE FROM %s WHERE ID='%s'",
 		config.TB_USERGROUP, group.Id)
 	_, err := db.Exec(sql)
