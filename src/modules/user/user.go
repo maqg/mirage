@@ -28,27 +28,15 @@ type User struct {
 	Desc        string `json:"desc"`
 }
 
-func (user *User) Brief() map[string]interface{} {
-	u := make(map[string]interface{}, 2)
-	u["id"] = user.Id
-	u["name"] = user.Name
-
-	return u
+func (user *User) Brief() map[string]string {
+	return map[string]string{
+		"id":   user.Id,
+		"name": user.Name,
+	}
 }
 
 func GetUserCount(db *octmysql.OctMysql) int {
-
-	var count int = 0
-
-	row := db.QueryRow("SELECT COUNT(1) FROM tb_user")
-	err := row.Scan(&count)
-	if err != nil {
-		logger.Errorf("get count for user error %s", err.Error())
-		return 0
-	}
-
-	octlog.Debug("got %d users", count)
-
+	count, _ := db.Count(config.TB_USER, "")
 	return count
 }
 

@@ -99,3 +99,25 @@ func (octmysql *OctMysql) Exec(query string, args ...interface{}) (sql.Result, e
 
 	return octmysql.conn.Exec(query, args...)
 }
+
+func (octmysql *OctMysql) Count(table string, cond string, args ...interface{}) (int, error) {
+
+	if octmysql.conn == nil {
+		err := octmysql.Open()
+		if err != nil {
+			return 0, err
+		}
+	}
+
+	query := "SELECT COUNT(*) FROM " + table + " " + cond
+
+	var count int
+	row := octmysql.conn.QueryRow(query, args...)
+
+	err := row.Scan(&count)
+	if err != nil {
+		return 0, err
+	}
+
+	return count, err
+}

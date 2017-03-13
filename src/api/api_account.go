@@ -117,7 +117,7 @@ func APIShowAccountList(paras *ApiParas) *ApiResponse {
 	}
 	defer rows.Close()
 
-	accountList := make([]map[string]interface{}, 0)
+	accountList := make([]map[string]string, 0)
 
 	for rows.Next() {
 		var account account.Account

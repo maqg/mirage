@@ -141,7 +141,7 @@ func APIShowUserList(paras *ApiParas) *ApiResponse {
 	}
 	defer rows.Close()
 
-	userList := make([]map[string]interface{}, 0)
+	userList := make([]map[string]string, 0)
 
 	for rows.Next() {
 		var user user.User

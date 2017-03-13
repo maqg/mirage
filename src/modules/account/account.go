@@ -12,6 +12,11 @@ import (
 	"time"
 )
 
+const (
+	SUPERADMIN_ACCOUNT = "00000000000000000000000000000000" // root
+	ADMIN_ACCOUNT      = "42fa1e66ff5411e6b2dc60334b213917" // admin
+)
+
 var logger *octlog.LogConfig
 
 func InitLog(level int) {
@@ -48,26 +53,15 @@ type Account struct {
 }
 
 func GetAccountCount(db *octmysql.OctMysql) int {
-
-	var count int = 0
-
-	row := db.QueryRow("SELECT COUNT(1) FROM tb_account")
-	err := row.Scan(&count)
-	if err != nil {
-		logger.Errorf("get count for account error %s", err.Error())
-		return 0
-	}
-
-	octlog.Debug("got %d accounts", count)
-
+	count, _ := db.Count(config.TB_ACCOUNT, "")
 	return count
 }
 
-func (account *Account) Brief() map[string]interface{} {
-	b := make(map[string]interface{}, 2)
-	b["id"] = account.Id
-	b["name"] = account.Name
-	return b
+func (account *Account) Brief() map[string]string {
+	return map[string]string{
+		"id":   account.Id,
+		"name": account.Name,
+	}
 }
 
 func (account *Account) ResetPassword(db *octmysql.OctMysql, password string) int {
@@ -199,6 +193,11 @@ func (account *Account) Add(db *octmysql.OctMysql) int {
 }
 
 func (account *Account) Delete(db *octmysql.OctMysql) int {
+
+	if account.Id == SUPERADMIN_ACCOUNT || account.Id == ADMIN_ACCOUNT {
+		octlog.Error("superadmin or admin account cannot be removed")
+		return merrors.ERR_UNACCP_PARAS
+	}
 
 	sql := fmt.Sprintf("DELETE FROM %s WHERE ID='%s'",
 		config.TB_ACCOUNT, account.Id)

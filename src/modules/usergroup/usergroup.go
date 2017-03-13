@@ -8,6 +8,10 @@ import (
 	"octlink/mirage/src/utils/octmysql"
 )
 
+const (
+	DEFAULT_USERGROUP = "00000000000000000000000000000000"
+)
+
 var logger *octlog.LogConfig
 
 func InitLog(level int) {
@@ -24,26 +28,36 @@ type UserGroup struct {
 }
 
 func GetGroupCount(db *octmysql.OctMysql) int {
-
-	var count int = 0
-
-	row := db.QueryRow("SELECT COUNT(1) FROM tb_usergroup")
-	err := row.Scan(&count)
-	if err != nil {
-		logger.Errorf("get count for user group error %s", err.Error())
-		return 0
-	}
-
-	octlog.Debug("got %d user groups", count)
-
+	count, _ := db.Count(config.TB_USERGROUP, "")
 	return count
 }
 
-func (group *UserGroup) Brief() map[string]interface{} {
-	b := make(map[string]interface{}, 2)
-	b["id"] = group.Id
-	b["name"] = group.Name
-	return b
+func (group *UserGroup) Brief() map[string]string {
+	return map[string]string{
+		"id":   group.Id,
+		"name": group.Name,
+	}
+}
+
+func (group *UserGroup) UserCount(db *octmysql.OctMysql) int {
+	count, _ := db.Count(config.TB_RELUSERGROUP, "WHERE RUG_GroupId=?",
+		group.Id)
+	return count
+}
+
+func (group *UserGroup) Update(db *octmysql.OctMysql) int {
+
+	sql := fmt.Sprintf("UPDATE %s SET UG_Name='%s',UG_Descrition='%s' "+
+		"WHERE ID='%s';", config.TB_USERGROUP, group.Name,
+		group.Desc, group.Id)
+
+	_, err := db.Exec(sql)
+	if err != nil {
+		logger.Errorf("Update UserGroup error %s", sql)
+		return merrors.ERR_DB_ERR
+	}
+
+	return 0
 }
 
 func (group *UserGroup) Add(db *octmysql.OctMysql) int {
@@ -65,6 +79,11 @@ func (group *UserGroup) Add(db *octmysql.OctMysql) int {
 }
 
 func (group *UserGroup) Delete(db *octmysql.OctMysql) int {
+
+	if group.Id == DEFAULT_USERGROUP {
+		octlog.Error("default usergroup cannot be removed %s", DEFAULT_USERGROUP)
+		return merrors.ERR_UNACCP_PARAS
+	}
 
 	sql := fmt.Sprintf("DELETE FROM %s WHERE ID='%s'",
 		config.TB_USERGROUP, group.Id)

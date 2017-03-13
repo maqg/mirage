@@ -53,9 +53,27 @@ func APIShowUserGroup(paras *ApiParas) *ApiResponse {
 }
 
 func APIUpdateUserGroup(paras *ApiParas) *ApiResponse {
-	octlog.Debug("running in APIUpdateUser\n")
+
 	resp := new(ApiResponse)
-	resp.Error = 0
+
+	id := paras.InParas.Paras["id"].(string)
+
+	g := usergroup.FindGroup(paras.Db, id)
+	if g == nil {
+		resp.Error = merrors.ERR_USERGROUP_NOT_EXIST
+		resp.ErrorLog = "User group " + id + "Not Exist"
+		return resp
+	}
+
+	g.Name = paras.InParas.Paras["name"].(string)
+	g.Desc = paras.InParas.Paras["desc"].(string)
+
+	ret := g.Update(paras.Db)
+	if ret != 0 {
+		resp.Error = ret
+		return resp
+	}
+
 	return resp
 }
 
@@ -104,17 +122,20 @@ func APIShowAllUserGroup(paras *ApiParas) *ApiResponse {
 
 func APIDeleteUserGroup(paras *ApiParas) *ApiResponse {
 
-	octlog.Debug("running in APIDeleteUser\n")
-
 	resp := new(ApiResponse)
 
-	group := usergroup.FindGroup(paras.Db, paras.InParas.Paras["id"].(string))
+	id := paras.InParas.Paras["id"].(string)
+	group := usergroup.FindGroup(paras.Db, id)
 	if group == nil {
-		resp.Error = merrors.ERR_SEGMENT_NOT_EXIST
+		resp.Error = merrors.ERR_USERGROUP_NOT_EXIST
 		return resp
 	}
 
-	group.Delete(paras.Db)
+	resp.Error = group.Delete(paras.Db)
+	if resp.Error != 0 {
+		octlog.Error("remove user group \"%s\" error", group.Name)
+		resp.ErrorLog = fmt.Sprintf("User Group %s CANNOT be removed", group.Name)
+	}
 
 	return resp
 }
@@ -131,7 +152,7 @@ func APIShowUserGroupList(paras *ApiParas) *ApiResponse {
 	}
 	defer rows.Close()
 
-	groupList := make([]map[string]interface{}, 0)
+	groupList := make([]map[string]string, 0)
 
 	for rows.Next() {
 		var group usergroup.UserGroup
