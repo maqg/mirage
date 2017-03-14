@@ -160,7 +160,7 @@ CREATE TABLE `tb_user` (
   `ID` varchar(36) NOT NULL DEFAULT '',
   `U_Name` varchar(128) NOT NULL DEFAULT '',
   `U_State` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1: OK, 0: Bad',
-  `U_Type` int(11) NOT NULL DEFAULT '1' COMMENT 'terminal user',
+  `U_Type` int(11) NOT NULL DEFAULT '0' COMMENT 'terminal user',
   `U_LastLogin` bigint(20) NOT NULL DEFAULT '0',
   `U_LastSync` bigint(20) NOT NULL DEFAULT '0',
   `U_CreateTime` bigint(20) NOT NULL DEFAULT '0',
@@ -188,7 +188,7 @@ CREATE TABLE `tb_user` (
 
 LOCK TABLES `tb_user` WRITE;
 /*!40000 ALTER TABLE `tb_user` DISABLE KEYS */;
-INSERT INTO `tb_user` VALUES ('e1132175ff5411e6913460334b213917','test',1,1,0,0,0,'050e7255a41627d5f9141cd9bea94357','','',''),('e1132175ff5411e6913460334b213918','test1',1,1,0,0,0,'8555f41950a8fe627b1fb13a50bcc26a','','',''),('e1132175ff5411e6913460334b213919','test2',1,1,0,0,0,'6c274b6b947fb3c65de6eb1a548e65cf','','','');
+INSERT INTO `tb_user` VALUES ('e1132175ff5411e6913460334b213917','test',1,0,0,0,0,'050e7255a41627d5f9141cd9bea94357','','',''),('e1132175ff5411e6913460334b213918','test1',1,0,0,0,0,'8555f41950a8fe627b1fb13a50bcc26a','','',''),('e1132175ff5411e6913460334b213919','test2',1,0,0,0,0,'6c274b6b947fb3c65de6eb1a548e65cf','','','');
 /*!40000 ALTER TABLE `tb_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -318,4 +318,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-11 23:14:23
+-- Dump completed on 2017-03-13 23:10:52

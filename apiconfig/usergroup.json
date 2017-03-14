@@ -25,7 +25,6 @@
 
 	"APIShowUserGroup": {
 		"name": "获取单个用户组",
-		"handler": "ShowUserGroup",
 		"paras": [
 			{
 				"name": "id",

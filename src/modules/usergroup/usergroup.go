@@ -45,6 +45,29 @@ func (group *UserGroup) UserCount(db *octmysql.OctMysql) int {
 	return count
 }
 
+func (group *UserGroup) AllowUser(db *octmysql.OctMysql, userId string) int {
+
+	sql := fmt.Sprintf("INSERT INTO %s (RUG_GroupId, RUG_UserId) VALUES ('%','%s');",
+		config.TB_RELUSERGROUP, group.Id, userId)
+
+	_, err := db.Exec(sql)
+	if err != nil {
+		logger.Errorf("Allow User error %s", sql)
+		return merrors.ERR_DB_ERR
+	}
+
+	return 0
+}
+
+func (group *UserGroup) AllowUsers(db *octmysql.OctMysql, users []string) int {
+
+	for _, val := range users {
+		group.AllowUser(db, val)
+	}
+
+	return 0
+}
+
 func (group *UserGroup) Update(db *octmysql.OctMysql) int {
 
 	sql := fmt.Sprintf("UPDATE %s SET UG_Name='%s',UG_Descrition='%s' "+

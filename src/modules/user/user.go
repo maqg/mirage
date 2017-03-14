@@ -2,10 +2,13 @@ package user
 
 import (
 	"fmt"
+	"octlink/mirage/src/modules/account"
+	"octlink/mirage/src/modules/session"
 	"octlink/mirage/src/utils/config"
 	"octlink/mirage/src/utils/merrors"
 	"octlink/mirage/src/utils/octlog"
 	"octlink/mirage/src/utils/octmysql"
+	"time"
 )
 
 var logger *octlog.LogConfig
@@ -72,6 +75,58 @@ func (user *User) Delete(db *octmysql.OctMysql) int {
 	octlog.Debug(sql)
 
 	return 0
+}
+
+func (user *User) UpdateLogin(db *octmysql.OctMysql) int {
+
+	sql := fmt.Sprintf("UPDATE %s SET U_LastLogin='%d' WHERE ID='%s';",
+		config.TB_USER, int64(time.Now().Unix()), user.Id)
+
+	_, err := db.Exec(sql)
+	if err != nil {
+		logger.Errorf("update Login %s error %s",
+			user.Name, sql)
+		return merrors.ERR_DB_ERR
+	}
+
+	return 0
+}
+
+func (user *User) UpdateSyncTime(db *octmysql.OctMysql) int {
+
+	sql := fmt.Sprintf("UPDATE %s SET U_LastSync='%d' WHERE ID='%s';",
+		config.TB_USER, int64(time.Now().Unix()), user.Id)
+
+	_, err := db.Exec(sql)
+	if err != nil {
+		logger.Errorf("update last sync %s error %s",
+			user.Name, sql)
+		return merrors.ERR_DB_ERR
+	}
+
+	return 0
+}
+
+func (user *User) Login(db *octmysql.OctMysql,
+	password string) *session.Session {
+
+	var uid string
+
+	encPass := account.GetEncPassword(password)
+
+	sql := fmt.Sprintf("SELECT ID FROM %s WHERE U_Name='%s' AND U_Password='%s';",
+		config.TB_USER, user.Name, encPass)
+
+	row := db.QueryRow(sql)
+	err := row.Scan(&uid)
+	if err != nil {
+		logger.Errorf("Login user %s error %s", user.Name, err.Error())
+		return nil
+	}
+
+	user.UpdateLogin(db)
+
+	return session.NewSession(db, user.Id, user.Name, account.USER_TYPE_USER)
 }
 
 func FindUserByName(db *octmysql.OctMysql, name string) *User {

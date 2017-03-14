@@ -24,6 +24,7 @@ func InitLog(level int) {
 type Session struct {
 	Id         string `json:"id"`
 	UserId     string `json:"userId"`
+	UserType   int    `json:"userType"` // superadmin 7,admin 3, audit 3, user 0
 	UserName   string `json:"userName"`
 	CreateTime int64  `json:"createTime"`
 	LastSync   int64  `json:"lastSync"`
@@ -34,10 +35,11 @@ type Session struct {
 func (session *Session) Insert(db *octmysql.OctMysql) int {
 
 	sql := fmt.Sprintf("INSERT INTO %s (ID,S_UserId,S_UserName,S_CreateTime,"+
-		"S_LastSync,S_ExpireTime) VALUES ('%s','%s','%s','%d','%d','%d');",
+		"S_LastSync,S_ExpireTime) VALUES ('%s','%s','%d',%s','%d','%d','%d');",
 		config.TB_SESSION,
 		session.Id,
 		session.UserId,
+		session.UserType,
 		session.UserName,
 		session.CreateTime,
 		session.LastSync,
@@ -58,7 +60,8 @@ func (session *Session) Delete(db *octmysql.OctMysql) {
 	db.Exec(sql)
 }
 
-func NewSession(db *octmysql.OctMysql, userId string, userName string) *Session {
+func NewSession(db *octmysql.OctMysql, userId string,
+	userName string, userType int) *Session {
 
 	sess := new(Session)
 
@@ -71,6 +74,7 @@ func NewSession(db *octmysql.OctMysql, userId string, userName string) *Session 
 	sess.ExpireTime = now + SESSION_TIMEOUT
 	sess.UserName = userName
 	sess.UserId = userId
+	sess.UserType = userType
 
 	err := sess.Insert(db)
 	if err != 0 {

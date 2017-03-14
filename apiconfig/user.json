@@ -9,6 +9,12 @@
 				"default": "NotNull"
 			},
 			{
+				"name": "groupId",
+				"type": "string",
+				"desc": "Group Uuid",
+				"default": ""
+			},			
+			{
 				"name": "password",
 				"type": "string",
 				"desc": "密码（明文）",
@@ -17,7 +23,7 @@
 			{
 				"name": "email",
 				"type": "string",
-				"desc": "账号名称",
+				"desc": "电子邮箱",
 				"default": ""
 			},
 			{
@@ -25,12 +31,6 @@
 				"type": "string",
 				"desc": "电话号码",
 				"default": ""
-			},
-			{
-				"name": "type",
-				"type": "int",
-				"desc": "账号类型",
-				"default": 3
 			},
 			{
 				"name": "desc",
