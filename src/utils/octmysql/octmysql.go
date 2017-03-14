@@ -12,6 +12,12 @@ type OctMysql struct {
 	conn *sql.DB
 }
 
+var logger *octlog.LogConfig
+
+func InitLog(level int) {
+	logger = octlog.InitLogConfig("octmysql.log", level)
+}
+
 const (
 	DB_NAME     = "dbmirage"
 	DB_USER     = "root"
