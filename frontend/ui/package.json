@@ -1,7 +1,9 @@
 {
-  "name": "Mirage UI",
-  "discription": "Mirage UI",
-  "version": "1.0.0",
+  "name": "mirage-ui",
+  "description": "Mirage UI",
+  "repository": "Mirage",
+  "license": "BSD-2-Clause",
+  "version": "0.0.1",
   "scripts": {
     "start": "webpack-dev-server --inline --colors --progress --port 3000"
   },
@@ -13,11 +15,11 @@
     "@angular/http": "2.4.7",
     "@angular/platform-browser": "2.4.7",
     "@angular/platform-browser-dynamic": "2.4.7",
-    "@angular/router": "3.1.1",
+    "@angular/router": "3.4.7",
     "core-js": "2.4.1",
     "reflect-metadata": "0.1.8",
-    "rxjs": "5.0.0-beta.12",
-    "zone.js": "0.6.26"
+    "rxjs": "5.0.1",
+    "zone.js": "0.7.2"
   },
   "devDependencies": {
     "@types/core-js": "0.9.34",
