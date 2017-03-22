@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 
 @Component ({
-    selector: 'mirage-ui',
+    selector: 'ez-app',
     templateUrl: './app/entry.component.html'
 })
 export class EntryComponent {
