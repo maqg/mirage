@@ -3,6 +3,6 @@ import 'zone.js';
 
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-import { EntryModule } from './app/entry.module'
+import { AppModule } from './hero/app.module'
 
-platformBrowserDynamic().bootstrapModule(EntryModule);
+platformBrowserDynamic().bootstrapModule(AppModule);
