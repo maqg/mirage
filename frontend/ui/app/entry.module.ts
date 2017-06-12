@@ -8,6 +8,6 @@ import { EntryComponent } from './entry.component'
 @NgModule({
   imports: [ BrowserModule, FormsModule ],
   declarations: [ EntryComponent ],
-  bootstrap: [ EntryComponent ]
+  bootstrap: [ EntryComponent ],
 })
 export class EntryModule { }
