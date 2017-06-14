@@ -1,0 +1,134 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.basic {
+    background-color: #265a88
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    background-color: white;
+    height: inherit;
+}
+
+#myheader {
+    margin: 0 auto;
+    height: 50px;
+}
+
+#mybody h2 {
+    color: #333333;
+    padding-bottom: 10px;
+}
+
+#myheader p {
+    color: #eeeeee;
+}
+
+section {
+    overflow: auto;
+}
+
+textarea {
+    resize: vertical;
+}
+
+p {
+    font-size: 1.1em;
+    line-height: 1.7em;
+}
+
+#mybody {
+    padding-top: 10px;
+    background-color: white;
+    margin: 0 auto;
+    width: 75%;
+}
+
+tr td {
+    vertical-align: middle !important;
+}
+
+#myfooter {
+    background-color: white;
+    margin: 0 auto;
+    width: 75%;
+    height: 30px;
+    padding-top: 10px;
+    color: #777777;
+    clear: both;
+}
+
+#myfooter p {
+    color: gray;
+    font-size: 0.5em;
+    line-height: 1.6em;
+}
+
+#errorPrompt {
+    margin: 0 auto;
+    width: 400px;
+}
+
+.left-dashboard {
+    height: 300px;
+    width: 31%;
+    float: left;
+    padding: 20px;
+    margin: 1%;
+    background-color: #2aabd2;
+}
+
+.right-dashboard {
+    height: 300px;
+    float: left;
+    width: 31%;
+    padding: 20px;
+    margin: 1%;
+    background-color: #3c763d;
+}
+
+.middle-dashboard {
+    height: 300px;
+    width: 31%;
+    padding: 20px;
+    margin: 1%;
+    float: left;
+    background-color: #3c3c3c;
+}
+
+.left-dashboard img {
+    height: 200px;
+    width: 100%
+}
+
+.middle-dashboard img {
+    height: 200px;
+    width: 100%
+}
+
+.right-dashboard img {
+    height: 200px;
+    width: 100%;
+}
+
+.robotbutton {
+    height: 32px;
+    width: 32px;
+    float: left;
+}
+
+.robotbutton img {
+    margin: 2px;
+}
+
+.robotbutton:hover {
+    background-color: #9acfea;
+    opacity: 95;
+
+}
