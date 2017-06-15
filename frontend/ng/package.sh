@@ -1,3 +1,3 @@
 #!/bin/sh
 
-tar -zcf mirageui.tgz bundle.js static
+tar -zcf mirageui.tgz bundle.js index.html static

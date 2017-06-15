@@ -6,7 +6,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['', '.ts', '.js']
+    extensions: ['', '.ts', '.js', '.html']
   },
 
   module: {
@@ -18,7 +18,11 @@ module.exports = {
       {
         test:/\.css$/,
         loaders:['style','css']
-      }
+      },
+      {
+	test: /\.html$/,
+	loader: 'raw-loader'
+      },
     ]
   }
 };
