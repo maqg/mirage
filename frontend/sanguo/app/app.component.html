@@ -1,3 +1,18 @@
 <div>
-    <p>Welcome to {{ where }} </p>
+    <h1>{{ title }} </h1>
+    <p>My Favorite hero is: {{ myHero.name }}, With Hero Id is: {{ myHero.id }} </p>
+
+    <p>Heroes:</p>
+
+    <ul class="heroes">
+        <li *ngFor="let hero of heroes" [class.selected]="hero === selectedHero" (click)="onSelect(hero)">
+            <span class="badge">{{ hero.id }}</span> {{ hero.name }}
+        </li>
+
+    </ul>
+
+    <my-hero-detail [hero]="selectedHero"></my-hero-detail>
+
+    <p *ngIf="heroes.length > 3">There are many heroes!</p>
+
 </div>
