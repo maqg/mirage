@@ -1,8 +1,7 @@
 <div>
     <h1>{{ title }} </h1>
-    <p>My Favorite hero is: {{ myHero.name }}, With Hero Id is: {{ myHero.id }} </p>
 
-    <p>Heroes:</p>
+    <p>英雄榜：</p>
 
     <ul class="heroes">
         <li *ngFor="let hero of heroes" [class.selected]="hero === selectedHero" (click)="onSelect(hero)">
