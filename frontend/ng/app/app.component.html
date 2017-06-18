@@ -1,56 +1,10 @@
 <div id="myheader">
-    <div class="container">
-        <img style="height: 30px; width: 30px; margin: 10px; float: left" src="static/images/favicon.png">
-        <p style="float: left; margin: 10px 0 10px; color: white; font-size: 1.6em; line-height: 30px">MIRAGE</p>
-        <!--style type="text/css">
-            .nav {
-                float: left;
-                width: 600px;
-            }
-
-            .nav ul {
-                list-style-type: none;
-                width: 600px;
-            }
-
-            .nav li {
-                width: 150px;
-                float: left;
-            }
-        </style-->
-        <nav class="nav">
-            <ul class="navbar" style="list-style-type:none; width:600px;">
-                <li><a href="/">主页面</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            机器人管理 <b class="caret"></b>
-                        </a>
-                    <ul class="dropdown-menu" style="height: 0">
-                        <li><a href="/ui/robot/">机器人</a></li>
-                        <li><a href="/ui/contact/">联系人</a></li>
-                        <li><a href="/ui/group/">群组</a></li>
-                        <li><a href="/ui/message/">消息</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            账号管理 <b class="caret"></b>
-                        </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/ui/account/">账号管理</a></li>
-                        <li><a href="/ui/usercenter/">用户中心</a></li>
-                        <li><a href="/ui/logout/">退出</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            配置管理 <b class="caret"></b>
-                        </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/ui/config/">基本配置</a></li>
-                    </ul>
-                </li>
-            </ul>
+    <div id="headercontent">
+        <img src="static/images/favicon.png">
+        <p>MIRAGE</p>
+        <nav style="display: block">
+            <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+            <a routerLink="/heroes" routerLinkActive="active">Heroes</a>
         </nav>
     </div>
 </div>
