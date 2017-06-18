@@ -1,17 +1,26 @@
 <div id="myheader">
-    <div id="headercontent">
+    <div class="headercontent">
         <img src="static/images/favicon.png">
         <p>MIRAGE</p>
-        <nav style="display: block">
-            <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
-            <a routerLink="/heroes" routerLinkActive="active">Heroes</a>
-        </nav>
     </div>
 </div>
 
+<div class="headercontent">
+    <nav style="float: left">
+        <a routerLink="/dashboard" routerLinkActive="active">仪表盘</a>
+        <a routerLink="/accounts" routerLinkActive="active">账号</a>
+        <a routerLink="/config" routerLinkActive="active">配置</a>
+    </nav>
+</div>
+
 <div id="mybody">
-    <h2>机器人列表</h2>
-    <p>Welcome to {{ where }}</p>
+    <h1>机器人列表</h1>
+    <ul class="heroes">
+        <li *ngFor="let account of accounts">
+            <span class="badge">{{ account.id }}</span>
+            <span>{{ account.name }}</span>
+        </li>
+    </ul>
 </div>
 
 <div id="myfooter">
