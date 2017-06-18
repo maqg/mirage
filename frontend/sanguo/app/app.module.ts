@@ -1,3 +1,4 @@
+import { HeroSearchComponent } from './hero-search.component';
 import { HeroService } from './hero.service';
 import { DashboardComponent } from './dashboard.component';
 import { HeroesComponent } from './heroes.component';
@@ -15,7 +16,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService }  from './in-memory-data.service';
 
-
 @NgModule({
     imports: [
         HttpModule,
@@ -30,7 +30,8 @@ import { InMemoryDataService }  from './in-memory-data.service';
         AppComponent,
         HeroDetailComponent,
         HeroesComponent,
-        DashboardComponent
+        DashboardComponent,
+        HeroSearchComponent,
     ],
 
     providers: [HeroService],

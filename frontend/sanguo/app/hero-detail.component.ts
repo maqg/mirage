@@ -12,7 +12,7 @@ import 'rxjs/add/operator/switchMap';
     providers: [
         HeroService
     ],
-    styleUrls: [ 
+    styleUrls: [
         './app/hero-detail.component.css'
     ],
     templateUrl: './app/hero-detail.component.html',
@@ -32,6 +32,11 @@ export class HeroDetailComponent implements OnInit {
 
     goBack(): void {
         this.location.back();
+    }
+
+    save(): void {
+        this.heroService.update(this.hero)
+            .then(() => this.goBack());
     }
 
     constructor(
