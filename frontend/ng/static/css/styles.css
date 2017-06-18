@@ -33,6 +33,12 @@ tr td {
     vertical-align: middle !important;
 }
 
+h1 {
+    color: #999999;
+    font-size: 1.2em;
+    padding-bottom: 10px;
+}
+
 #errorPrompt {
     margin: 0 auto;
     width: 400px;

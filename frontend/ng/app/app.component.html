@@ -14,13 +14,7 @@
 </div>
 
 <div id="mybody">
-    <h1>机器人列表</h1>
-    <ul class="heroes">
-        <li *ngFor="let account of accounts">
-            <span class="badge">{{ account.id }}</span>
-            <span>{{ account.name }}</span>
-        </li>
-    </ul>
+    <router-outlet></router-outlet>
 </div>
 
 <div id="myfooter">
