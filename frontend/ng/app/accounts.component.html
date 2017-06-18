@@ -5,8 +5,10 @@
         <span class="badge">{{ account.id }}</span>
         <span>{{ account.name }}</span>
 </ul>
+
 <div *ngIf="selectedAccount">
     <h2>
-        {{selectedAccount.name | uppercase}} is my hero
+        账号名：{{ selectedAccount.name }}
     </h2>
+    <button (click)="gotoDetail()">View Details</button>
 </div>

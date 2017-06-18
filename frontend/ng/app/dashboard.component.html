@@ -1,6 +1,6 @@
 <h1>账号</h1>
 <div class="grid grid-pad">
-    <a *ngFor="let account of accounts" class="col-1-4">
+    <a *ngFor="let account of accounts" [routerLink]="['/detail', account.id]"  class="col-1-4">
         <div class="module account">
             <h4>{{ account.name }}</h4>
         </div>

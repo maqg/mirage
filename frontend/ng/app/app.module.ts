@@ -1,3 +1,4 @@
+import { AccountDetailComponent } from './account-detail.component';
 import { ConfigComponent } from './config.component';
 import { HttpModule } from '@angular/http';
 import { AccountService } from './account.service';
@@ -25,6 +26,7 @@ import { InMemoryDataService } from './in-memory-data.service';
         AppComponent,
         DashboardComponent,
         AccountsComponent,
+        AccountDetailComponent,
         ConfigComponent
     ],
 

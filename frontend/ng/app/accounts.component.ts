@@ -12,7 +12,7 @@ import { AccountService } from './account.service';
 
 export class AccountsComponent implements OnInit {
     accounts: Account[];
-    selectAccount: Account;
+    selectedAccount: Account;
 
     constructor(
         private accountService: AccountService,
@@ -29,6 +29,10 @@ export class AccountsComponent implements OnInit {
     }
 
     onSelect(account: Account): void {
-        this.selectAccount = account;
+        this.selectedAccount = account;
+    }
+
+    gotoDetail(): void {
+        this.router.navigate(['/detail', this.selectedAccount.id]);
     }
 }
