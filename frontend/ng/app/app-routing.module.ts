@@ -1,3 +1,4 @@
+import { ConfigComponent } from './config.component';
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -7,7 +8,8 @@ import { AccountsComponent }      from './accounts.component';
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'dashboard',  component: DashboardComponent },
-  { path: 'accounts',     component: AccountsComponent }
+  { path: 'accounts',     component: AccountsComponent },
+  { path: 'config',     component: ConfigComponent },
 ];
 
 @NgModule({
