@@ -12,14 +12,14 @@
     </ul>
 
     <div>
-        <label>Hero name:</label> <input #heroName />
-        <button (click)="add(heroName.value); heroName.value=''">Add</button>
+        <label>英雄名：</label> <input #heroName />
+        <button (click)="add(heroName.value); heroName.value=''">添加</button>
     </div>
 
     <div *ngIf="selectedHero">
         <h2>
             {{selectedHero.name | uppercase}} is my hero
         </h2>
-        <button (click)="gotoDetail()">View Details</button>
+        <button (click)="gotoDetail()">查看详情</button>
     </div>
 </div>
