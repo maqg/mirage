@@ -56,6 +56,7 @@ nav a.active {
     height: 34px;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 2px;
 }
 
 #mybody {
