@@ -7,7 +7,7 @@
   margin: 0 0 2em 0;
   list-style-type: none;
   padding: 0;
-  width: 15em;
+  width: 20em;
 }
 
 .accounts li {
@@ -101,5 +101,9 @@ table td {
   font-size: 1.1em;
   border-style: solid;
   border-color: #666666;
-  background-color: #d4e3e5;
+  /*background-color: #d4e3e5;*/
+}
+
+table tr:hover {
+  background-color: grey !important;
 }

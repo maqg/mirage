@@ -1,9 +1,10 @@
-<h1>英雄榜</h1>
+<h1>账号列表</h1>
 
 <ul class="accounts">
     <li *ngFor="let account of accounts" (click)="onSelect(account)" [class.selected]="account === selectedAccount">
         <span class="badge">{{ account.id }}</span>
         <span>{{ account.name }}</span>
+        <button class="delete" (click)="delete(hero); $event.stopPropagation()">X</button>
     </li>
 </ul>
 
