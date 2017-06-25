@@ -14,12 +14,23 @@
         <th>名称</th>
         <th>Email</th>
         <th>上次登录</th>
+        <th>操作</th>
     </tr>
-    <tr *ngFor="let account of accounts">
-        <td>{{ account.id }}</td>
+    <tr *ngFor="let account of accounts; let idx=index">
+        <p *ngIf="idx % 2 == 1">This is 1</p>
+        <p *ngIf="idx % 2 == 0">This is 0</p>
+        <td *ngIf="idx % 2 == 0">{{ account.id }}</td>
         <td>{{ account.name }}</td>
         <td>{{ account.email }}</td>
         <td>{{ account.lastLogin }}</td>
+        <td><button class="delete" (click)="delete(hero); $event.stopPropagation()">删除</button></td>
+        <!--div *nfIf="idx % 2 == 0">
+            <td>{{ account.id }}</td>
+            <td>{{ account.name }}</td>
+            <td>{{ account.email }}</td>
+            <td>{{ account.lastLogin }}</td>
+            <td><button class="delete" (click)="delete(hero); $event.stopPropagation()">删除</button>
+        </div-->
     </tr>
 </table>
 

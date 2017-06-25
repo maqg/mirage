@@ -112,3 +112,11 @@ table tr:hover {
 table tr:hover td {
   background: none;
 }
+
+.nonetable {
+  background-color: red;
+}
+
+.eventable {
+  background-color: green;
+}
