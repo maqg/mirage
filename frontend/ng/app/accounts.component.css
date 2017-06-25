@@ -101,9 +101,14 @@ table td {
   font-size: 1.1em;
   border-style: solid;
   border-color: #666666;
-  /*background-color: #d4e3e5;*/
+  background-color: #d4e3e5;
 }
 
 table tr:hover {
   background-color: grey !important;
+  color: white;
+}
+
+table tr:hover td {
+  background: none;
 }
