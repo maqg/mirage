@@ -75,38 +75,41 @@ button.delete {
 }
 
 table {
-  width: 95%;
+  width: 100%;
   font-family: verdana, arial, sans-serif;
-  font-size: 11px;
   color: #333333;
   border-width: 1px;
-  border-color: #666666;
+  border-color: grey;  
   border-collapse: collapse;
   text-align: center;
 }
 
 table th {
-  border-width: 1px;
-  padding: 8px;
-  border-style: solid;
-  border-color: #666666;
-  background-color: #607D8B;
-  font-size: 1.3em;
-  color: white;
+  padding: 2px;
+  border-color: grey;
+  background-color: #eee;
+  font-size: 1em;
+  color: black;
+  border-top: 1px solid #ddd;
+  border-left-style: none;
+  border-left-color: white;
+  border-right-color: white;
+  border-right-style: none;  
 }
 
 table td {
   border-width: 1px;
-  padding: 8px;
-  font-size: 1.1em;
-  border-style: solid;
-  border-color: #666666;
-  background-color: #d4e3e5;
+  padding: 2px;
+  font-size: 0.9em;
+  border-left-style: none;
+  border-left-color: white;
+  border-right-color: white;
+  border-right-style: none;
+  border-top: 1px solid #ddd;
 }
 
 table tr:hover {
-  background-color: grey !important;
-  color: white;
+  background-color: #d4e3e5 !important;
 }
 
 table tr:hover td {
@@ -114,9 +117,9 @@ table tr:hover td {
 }
 
 .nonetable {
-  background-color: red;
+  background-color: white;
 }
 
 .eventable {
-  background-color: green;
+  background-color: #eee;
 }
