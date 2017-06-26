@@ -32,6 +32,15 @@ export class AccountsComponent implements OnInit {
         this.selectedAccount = account;
     }
 
+    delete(account: Account): void {
+        this.accountService
+            .delete(account.id)
+            .then(() => {
+                this.accounts = this.accounts.filter(h => h !== account);
+                if (this.selectedAccount === account) { this.selectedAccount = null; }
+            });
+    }
+
     gotoDetail(): void {
         this.router.navigate(['/detail', this.selectedAccount.id]);
     }

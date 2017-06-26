@@ -60,3 +60,46 @@ h1 {
     opacity: 95;
 
 }
+
+table {
+  width: 100%;
+  font-family: verdana, arial, sans-serif;
+  color: #333333;
+  border-width: 1px;
+  border-color: grey;  
+  border-collapse: collapse;
+  text-align: center;
+}
+
+table th {
+  padding: 8px;
+  border-color: grey;
+  background-color: #eee;
+  font-size: 1em;
+  color: black;
+  border-top: 1px solid #ddd;
+}
+
+table td {
+  border-width: 1px;
+  height: 34px;
+  padding: 2px;
+  font-size: 0.9em;
+  border-top: 1px solid #ddd;
+}
+
+table tr:hover {
+  background-color: #d4e3e5 !important;
+}
+
+table tr:hover td {
+  background: none;
+}
+
+.nonetable {
+  background-color: white;
+}
+
+.eventable {
+  background-color: #eee;
+}

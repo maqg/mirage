@@ -19,25 +19,18 @@
     <tr *ngFor="let account of accounts; let idx=index">
 
         <td class="eventable" *ngIf="idx % 2 == 1; else othername">{{ account.name }}</td>
-        <template #othername><td class="nonetable">{{ account.name }}</td></template>
+        <ng-template #othername><td class="nonetable">{{ account.name }}</td></ng-template>
 
         <td class="eventable" *ngIf="idx % 2 == 1; else otherphonenumber">{{ account.phoneNumber }}</td>
-        <template #otherphonenumber><td class="nonetable">{{ account.phoneNumber }}</td></template>        
+        <ng-template #otherphonenumber><td class="nonetable">{{ account.phoneNumber }}</td></ng-template>        
 
         <td class="eventable" *ngIf="idx % 2 == 1; else otheremail">{{ account.email }}</td>
-        <template #otheremail><td class="nonetable">{{ account.email }}</td></template>
+        <ng-template #otheremail><td class="nonetable">{{ account.email }}</td></ng-template>
 
         <td class="eventable" *ngIf="idx % 2 == 1; else otherlastlogin">{{ account.lastLogin }}</td>
-        <template #otherlastlogin><td class="nonetable">{{ account.lastLogin }}</td></template>
+        <ng-template #otherlastlogin><td class="nonetable">{{ account.lastLogin }}</td></ng-template>
 
-        <td class="eventable" *ngIf="idx % 2 == 1; else otheroperation"><button class="delete" (click)="delete(hero);">删除</button></td>
-        <template #otheroperation><td class="nonetable"><button class="delete" (click)="delete(hero);">删除</button></td></template>                        
+        <td class="eventable" *ngIf="idx % 2 == 1; else otheroperation"><button class="delete" (click)="delete(account);">删除</button></td>
+        <ng-template #otheroperation><td class="nonetable"><button class="delete" (click)="delete(account);">删除</button></td></ng-template>                        
     </tr>
 </table>
-
-<div *ngIf="selectedAccount">
-    <h2>
-        账号名：{{ selectedAccount.name }}
-    </h2>
-    <button (click)="gotoDetail()">View Details</button>
-</div>

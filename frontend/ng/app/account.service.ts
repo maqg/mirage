@@ -28,6 +28,14 @@ export class AccountService {
       .catch(this.handleError);
   }
 
+  delete(id: number): Promise<void> {
+    const url = `${this.accountsUrl}/${id}`;
+    return this.http.delete(url, {headers: this.headers})
+      .toPromise()
+      .then(() => null)
+      .catch(this.handleError);
+  }
+
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
