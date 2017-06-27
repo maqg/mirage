@@ -1,11 +1,22 @@
 <div *ngIf="account">
     <h1>{{account.name}} 详情</h1>
     <div>
-        <label>id: </label>{{account.id}}</div>
-    <div>
-        <label>name: </label>
-        <input [(ngModel)]="account.name" placeholder="name" />
+        <div class="labelForm"><label>id: </label>{{ account.id }}</div>
+        <div class="inputForm">
+            <label>name: </label>
+            <input [(ngModel)]="account.name" placeholder="name" />
+        </div>
+        <div class="inputForm">
+            <label>Email: </label>
+            <input [(ngModel)]="account.email" placeholder="email" />
+        </div>
+        <div class="inputForm">
+            <label>PhoneNumber: </label>
+            <input [(ngModel)]="account.phoneNumber" placeholder="phoneNumber" />
+        </div>
+        <div class="labelForm"><label>CreateTime: </label>{{ account.createTime }}</div>
+        <div class="labelForm"><label>LastSync: </label>{{ account.LastSync }}</div>
     </div>
-    <!--button (click)="goBack()">Back</button>
-    <button (click)="save()">Save</button-->
+    <button (click)="save()">保存</button>
+    <button (click)="goBack()">返回</button>
 </div>

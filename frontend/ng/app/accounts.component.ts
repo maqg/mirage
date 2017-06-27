@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -12,7 +13,6 @@ import { AccountService } from './account.service';
 
 export class AccountsComponent implements OnInit {
     accounts: Account[];
-    selectedAccount: Account;
 
     constructor(
         private accountService: AccountService,
@@ -28,20 +28,19 @@ export class AccountsComponent implements OnInit {
         this.getAccounts();
     }
 
-    onSelect(account: Account): void {
-        this.selectedAccount = account;
-    }
-
     delete(account: Account): void {
         this.accountService
             .delete(account.id)
             .then(() => {
                 this.accounts = this.accounts.filter(h => h !== account);
-                if (this.selectedAccount === account) { this.selectedAccount = null; }
             });
     }
 
-    gotoDetail(): void {
-        this.router.navigate(['/detail', this.selectedAccount.id]);
+    gotoDetail(account: Account): void {
+        this.router.navigate(['/detail', account.id]);
+    }
+
+    gotoAdd(): void {
+        this.router.navigate(['/accounts/add']);
     }
 }

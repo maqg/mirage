@@ -1,3 +1,4 @@
+import { AccountAddComponent } from './account-add.component';
 import { AccountDetailComponent } from './account-detail.component';
 import { ConfigComponent } from './config.component';
 import { HttpModule } from '@angular/http';
@@ -27,7 +28,8 @@ import { InMemoryDataService } from './in-memory-data.service';
         DashboardComponent,
         AccountsComponent,
         AccountDetailComponent,
-        ConfigComponent
+        ConfigComponent,
+        AccountAddComponent
     ],
 
     providers: [

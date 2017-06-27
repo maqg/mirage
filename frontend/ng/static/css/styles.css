@@ -14,6 +14,7 @@ html {
 body {
     background-color: white;
     height: inherit;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 section {
@@ -45,61 +46,107 @@ h1 {
     width: 400px;
 }
 
-.robotbutton {
-    height: 32px;
-    width: 32px;
-    float: left;
-}
-
-.robotbutton img {
-    margin: 2px;
-}
-
-.robotbutton:hover {
-    background-color: #9acfea;
-    opacity: 95;
-
-}
-
 table {
-  width: 100%;
-  font-family: verdana, arial, sans-serif;
-  color: #333333;
-  border-width: 1px;
-  border-color: grey;  
-  border-collapse: collapse;
-  text-align: center;
+    width: 100%;
+    font-family: verdana, arial, sans-serif;
+    color: #333333;
+    border-width: 1px;
+    border-color: grey;
+    border-collapse: collapse;
+    text-align: center;
 }
 
 table th {
-  padding: 8px;
-  border-color: grey;
-  background-color: #eee;
-  font-size: 1em;
-  color: black;
-  border-top: 1px solid #ddd;
+    padding: 8px;
+    border-color: grey;
+    background-color: #eee;
+    font-size: 0.9m;
+    color: black;
+    border-top: 1px solid #ddd;
 }
 
 table td {
-  border-width: 1px;
-  height: 34px;
-  padding: 2px;
-  font-size: 0.9em;
-  border-top: 1px solid #ddd;
+    border-width: 1px;
+    height: 34px;
+    padding: 2px;
+    font-size: 0.9em;
+    border-top: 1px solid #ddd;
 }
 
 table tr:hover {
-  background-color: #d4e3e5 !important;
+    background-color: #d4e3e5 !important;
 }
 
 table tr:hover td {
-  background: none;
+    background: none;
 }
 
 .nonetable {
-  background-color: white;
+    background-color: white;
 }
 
 .eventable {
-  background-color: #eee;
+    background-color: #eee;
+}
+
+button {
+    font-family: Arial;
+    background-color: #eee;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    cursor: hand;
+}
+
+button:hover {
+    background-color: #cfd8dc;
+}
+
+button {
+    margin-top: 2px;
+    background-color: gray !important;
+    color: white;
+}
+
+.inputForm {
+    margin-top: 2px;
+    margin-bottom: 1px;
+}
+
+.inputForm input {
+    background-color: aliceblue;
+    height: 2em;
+    padding: 2px;
+    font-size: 0.8em;
+}
+
+.inputForm label {
+    font-size: 1.1em;
+    display: inline-block;
+    width: 140px;
+    margin: .5em 0;
+    color: lightslategrey;
+    font-weight: bold;
+}
+
+.labelForm {
+    margin-top: 2px;
+    margin-bottom: 1px;
+}
+
+.labelForm input {
+    background-color: aliceblue;
+    height: 2em;
+    padding: 2px;
+    font-size: 0.8em;
+}
+
+.labelForm label {
+    font-size: 1.1em;
+    display: inline-block;
+    width: 140px;
+    margin: .5em 0;
+    color: lightslategrey;
+    font-weight: bold;
 }

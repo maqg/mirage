@@ -19,18 +19,37 @@
     <tr *ngFor="let account of accounts; let idx=index">
 
         <td class="eventable" *ngIf="idx % 2 == 1; else othername">{{ account.name }}</td>
-        <ng-template #othername><td class="nonetable">{{ account.name }}</td></ng-template>
+        <ng-template #othername>
+            <td class="nonetable">{{ account.name }}</td>
+        </ng-template>
 
         <td class="eventable" *ngIf="idx % 2 == 1; else otherphonenumber">{{ account.phoneNumber }}</td>
-        <ng-template #otherphonenumber><td class="nonetable">{{ account.phoneNumber }}</td></ng-template>        
+        <ng-template #otherphonenumber>
+            <td class="nonetable">{{ account.phoneNumber }}</td>
+        </ng-template>
 
         <td class="eventable" *ngIf="idx % 2 == 1; else otheremail">{{ account.email }}</td>
-        <ng-template #otheremail><td class="nonetable">{{ account.email }}</td></ng-template>
+        <ng-template #otheremail>
+            <td class="nonetable">{{ account.email }}</td>
+        </ng-template>
 
         <td class="eventable" *ngIf="idx % 2 == 1; else otherlastlogin">{{ account.lastLogin }}</td>
-        <ng-template #otherlastlogin><td class="nonetable">{{ account.lastLogin }}</td></ng-template>
+        <ng-template #otherlastlogin>
+            <td class="nonetable">{{ account.lastLogin }}</td>
+        </ng-template>
 
-        <td class="eventable" *ngIf="idx % 2 == 1; else otheroperation"><button class="delete" (click)="delete(account);">删除</button></td>
-        <ng-template #otheroperation><td class="nonetable"><button class="delete" (click)="delete(account);">删除</button></td></ng-template>                        
+        <td class="eventable" *ngIf="idx % 2 == 1; else otheroperation">
+            <button (click)="gotoDetail(account)">编辑</button>
+            <button class="delete" (click)="delete(account);">删除</button>
+            <button (click)="gotoAdd()">添加</button>
+        </td>
+        <ng-template #otheroperation>
+            <td class="nonetable">
+                <button (click)="gotoDetail(account)">编辑</button>
+                <button class="delete" (click)="delete(account);">删除</button>
+                <button (click)="gotoAdd()">添加</button>
+            </td>
+        </ng-template>
     </tr>
 </table>
+

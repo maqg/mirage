@@ -1,0 +1,17 @@
+<div>
+    <h1>添加账号</h1>
+    <div class="inputForm">
+        <label>name:</label>
+        <input #accountName />
+    </div>
+    <div class="inputForm">
+        <label>Email: </label>
+        <input #accountEmail />
+    </div>
+    <div class="inputForm">
+        <label>PhoneNumber: </label>
+        <input #accountPhoneNumber />
+    </div>
+    <button (click)="add(accountName.value, accountEmail.value, accountPhoneNumber.value)">添加</button>
+    <button (click)="goBack()">返回</button>
+</div>

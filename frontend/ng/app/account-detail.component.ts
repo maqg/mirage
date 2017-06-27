@@ -27,10 +27,10 @@ export class AccountDetailComponent implements OnInit {
             .subscribe(account => this.account = account);
     }
 
-    /*save(): void {
-        this.accountService.update(this.hero)
+    save(): void {
+        this.accountService.update(this.account)
             .then(() => this.goBack());
-    }*/
+    }
 
     goBack(): void {
         this.location.back();
