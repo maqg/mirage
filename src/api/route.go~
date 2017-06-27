@@ -23,7 +23,6 @@ func (api *Api) ApiRouter() *gin.Engine {
 
 	router.LoadHTMLGlob(BaseDir + "frontend/apitest/templates/*.html")
 	router.Static("/static", BaseDir+"frontend/apitest/static")
-	router.Static("/ng", BaseDir+"frontend/ng")
 
 	router.GET("/", func(c *gin.Context) {
 		c.String(200, "pass")

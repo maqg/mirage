@@ -28,7 +28,7 @@ func initLogConfig() {
 
 const (
 	HTTP_SERVER = "0.0.0.0"
-	HTTP_PORT   = 9999
+	HTTP_PORT   = 8080
 )
 
 func main() {
