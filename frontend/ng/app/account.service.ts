@@ -45,9 +45,14 @@ export class AccountService {
     return this.apiService.doRequest(req)
       .then(res => {
         if (res.errorCode !== 0) {
-          return res.errorMsg;
+          return [];
         }
-        var accounts: Account[] = res.data.data.json() as Account[];
+        let objs = res.data.data;
+        var accounts: Account[] = [];
+        for (let obj of objs) {
+          let account = obj as Account;
+          accounts.push(account);
+        }
         return accounts;
       })
       .catch(err => {
@@ -55,7 +60,7 @@ export class AccountService {
       });
   }
 
-  getAccount(id: number): Promise<Account> {
+  getAccount(id: string): Promise<Account> {
     const url = `${this.accountsUrl}/${id}`;
     return this.http.get(url)
       .toPromise()
@@ -63,7 +68,7 @@ export class AccountService {
       .catch(this.handleError);
   }
 
-  delete(id: number): Promise<void> {
+  delete(id: string): Promise<void> {
     const url = `${this.accountsUrl}/${id}`;
     return this.http.delete(url, { headers: this.headers })
       .toPromise()

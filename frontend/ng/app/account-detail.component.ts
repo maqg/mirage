@@ -22,9 +22,10 @@ export class AccountDetailComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.route.params
+        /*this.route.params
             .switchMap((params: Params) => this.accountService.getAccount(+params['id']))
             .subscribe(account => this.account = account);
+            */
     }
 
     save(): void {

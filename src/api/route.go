@@ -29,6 +29,7 @@ func (api *Api) ApiRouter() *gin.Engine {
 
 	router.Static("/static", BaseDir+"frontend/apitest/static")
 	router.Static("/ng", BaseDir+"frontend/ng")
+	router.Static("/app", BaseDir+"frontend/ng/app")
 
 	router.GET("/apitest", api.LoadApiTestPage)
 

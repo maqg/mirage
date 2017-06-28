@@ -13,25 +13,31 @@
         <th>ID</th>
         <th>名称</th>
         <th>Email</th>
+        <th>Phone</th>
         <th>上次登录</th>
         <th>操作</th>
     </tr>
     <tr *ngFor="let account of accounts; let idx=index">
+
+        <td class="eventable" *ngIf="idx % 2 == 1; else otherid">{{ account.id }}</td>
+        <ng-template #otherid>
+            <td class="nonetable">{{ account.id }}</td>
+        </ng-template>
 
         <td class="eventable" *ngIf="idx % 2 == 1; else othername">{{ account.name }}</td>
         <ng-template #othername>
             <td class="nonetable">{{ account.name }}</td>
         </ng-template>
 
-        <td class="eventable" *ngIf="idx % 2 == 1; else otherphonenumber">{{ account.phoneNumber }}</td>
-        <ng-template #otherphonenumber>
-            <td class="nonetable">{{ account.phoneNumber }}</td>
-        </ng-template>
-
         <td class="eventable" *ngIf="idx % 2 == 1; else otheremail">{{ account.email }}</td>
         <ng-template #otheremail>
             <td class="nonetable">{{ account.email }}</td>
         </ng-template>
+
+        <td class="eventable" *ngIf="idx % 2 == 1; else otherphonenumber">{{ account.phoneNumber }}</td>
+        <ng-template #otherphonenumber>
+            <td class="nonetable">{{ account.phoneNumber }}</td>
+        </ng-template>        
 
         <td class="eventable" *ngIf="idx % 2 == 1; else otherlastlogin">{{ account.lastLogin }}</td>
         <ng-template #otherlastlogin>
