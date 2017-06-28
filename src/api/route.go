@@ -36,6 +36,7 @@ func (api *Api) ApiRouter() *gin.Engine {
 
 	router.GET("/api/", api.ApiTest)
 	router.POST("/api/", api.ApiDispatch)
+	router.POST("/ng/api/", api.ApiDispatch)
 
 	return router
 }

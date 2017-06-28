@@ -152,6 +152,8 @@ func checkParas(apiParas *ApiParas) (int, string) {
 
 func (api *Api) ApiDispatch(c *gin.Context) {
 
+	octlog.Error("got api request\n")
+
 	paras, err := getApiParas(c)
 	if paras == nil {
 		octlog.Error("No match proto found\n")

@@ -1,3 +1,4 @@
+import { ApiService } from './common/api.service';
 import { AccountAddComponent } from './account-add.component';
 import { AccountDetailComponent } from './account-detail.component';
 import { ConfigComponent } from './config.component';
@@ -11,7 +12,7 @@ import { NgModule } from '@angular/core'
 import { FormsModule }   from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser'
 
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+//import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
 
 @NgModule({
@@ -19,7 +20,7 @@ import { InMemoryDataService } from './in-memory-data.service';
         HttpModule,
         FormsModule,
         BrowserModule,
-        InMemoryWebApiModule.forRoot(InMemoryDataService),
+       // InMemoryWebApiModule.forRoot(InMemoryDataService),
         AppRoutingModule,
     ],
 
@@ -34,6 +35,7 @@ import { InMemoryDataService } from './in-memory-data.service';
 
     providers: [
         AccountService,
+        ApiService
     ],
     bootstrap: [
         AppComponent
