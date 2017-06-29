@@ -31,13 +31,73 @@ export class AccountService {
     return req;
   }
 
-  /*
-  getAccounts(): Promise<Account[]> {
-    return this.http.get(this.accountsUrl)
-      .toPromise()
-      .then(response => response.json().data as Account[])
-      .catch(this.handleError);
-  }*/
+  private createGetAccountReq(accountId: string) {
+    let req = new ApiRequest();
+    req.module = "account";
+    req.api = API_PREFIX + "." + req.module + "." + "APIShowAccount";
+    req.paras = {
+      id: accountId
+    };
+    req.async = false;
+    req.session = {
+      uuid: SESSION_ID,
+      skey: API_KEY
+    };
+    return req;
+  }
+
+  private createDeleteAccountReq(accountId: string) {
+    let req = new ApiRequest();
+    req.module = "account";
+    req.api = API_PREFIX + "." + req.module + "." + "APIDeleteAccount";
+    req.paras = {
+      id: accountId
+    };
+    req.async = false;
+    req.session = {
+      uuid: SESSION_ID,
+      skey: API_KEY
+    };
+    return req;
+  }
+
+  private createUpdateAccountReq(accountId: string, email: string, phoneNumber: string, desc: string) {
+    let req = new ApiRequest();
+    req.module = "account";
+    req.api = API_PREFIX + "." + req.module + "." + "APIUpdateAccount";
+    req.paras = {
+      id: accountId,
+      email: email,
+      phoneNumber: phoneNumber,
+      desc: desc
+    };
+    req.async = false;
+    req.session = {
+      uuid: SESSION_ID,
+      skey: API_KEY
+    };
+    return req;
+  }
+
+  private createAddAccountReq(name: string, password: string, email: string, phoneNumber: string, desc: string) {
+    let req = new ApiRequest();
+    req.module = "account";
+    req.api = API_PREFIX + "." + req.module + "." + "APIAddAccount";
+    req.paras = {
+      account: name,
+      password: password,
+      email: email,
+      type: 3,
+      phoneNumber: phoneNumber,
+      desc: desc
+    };
+    req.async = false;
+    req.session = {
+      uuid: SESSION_ID,
+      skey: API_KEY
+    };
+    return req;
+  }
 
   getAccounts(): Promise<Account[]> {
 
@@ -61,41 +121,56 @@ export class AccountService {
   }
 
   getAccount(id: string): Promise<Account> {
-    const url = `${this.accountsUrl}/${id}`;
-    return this.http.get(url)
-      .toPromise()
-      .then(response => response.json().data as Account)
-      .catch(this.handleError);
+    let req = this.createGetAccountReq(id);
+    return this.apiService.doRequest(req)
+      .then(res => {
+        if (res.errorCode !== 0) {
+          return null;
+        }
+        return res.data as Account;
+      })
+      .catch(err => {
+        return Promise.reject(err);
+      });
   }
 
   delete(id: string): Promise<void> {
-    const url = `${this.accountsUrl}/${id}`;
-    return this.http.delete(url, { headers: this.headers })
-      .toPromise()
-      .then(() => null)
-      .catch(this.handleError);
+    let req = this.createDeleteAccountReq(id);
+    return this.apiService.doRequest(req)
+      .then(res => {
+        if (res.errorCode !== 0) {
+          return;
+        }
+      })
+      .catch(err => {
+        this.handleError;
+      });
   }
 
-  create(name: string, email: string, phoneNumber: string): Promise<Account> {
-    var account = {
-      "name": name,
-      "email": email,
-      "phoneNumber": phoneNumber
-    };
-    return this.http
-      .post(this.accountsUrl, JSON.stringify(account), { headers: this.headers })
-      .toPromise()
-      .then(res => res.json().data)
-      .catch(this.handleError);
+  create(name: string, password: string, email: string, phoneNumber: string): Promise<void> {
+    let req = this.createAddAccountReq(name, password, email, phoneNumber, "");
+    return this.apiService.doRequest(req)
+      .then(res => {
+        if (res.errorCode !== 0) {
+          return;
+        }
+      })
+      .catch(err => {
+        this.handleError;
+      });
   }
 
   update(account: Account): Promise<Account> {
-    const url = `${this.accountsUrl}/${account.id}`;
-    return this.http
-      .put(url, JSON.stringify(account), { headers: this.headers })
-      .toPromise()
-      .then(() => account)
-      .catch(this.handleError);
+    let req = this.createUpdateAccountReq(account.id, account.email, account.phoneNumber, account.desc);
+    return this.apiService.doRequest(req)
+      .then(res => {
+        if (res.errorCode !== 0) {
+          return null;
+        }
+      })
+      .catch(err => {
+        this.handleError;
+      });
   }
 
   private handleError(error: any): Promise<any> {

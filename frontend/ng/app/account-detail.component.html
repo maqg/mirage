@@ -2,6 +2,7 @@
     <h1>{{account.name}} 详情</h1>
     <div>
         <div class="labelForm"><label>id: </label>{{ account.id }}</div>
+        <div class="labelForm"><label>状态：</label>{{ account.state }}</div>
         <div class="inputForm">
             <label>name: </label>
             <input [(ngModel)]="account.name" placeholder="name" />

@@ -1,17 +1,25 @@
 <div>
     <h1>添加账号</h1>
     <div class="inputForm">
-        <label>name:</label>
+        <label>账号名:</label>
         <input #accountName />
+    </div>
+    <div class="inputForm">
+        <label>密码: </label>
+        <input type="password" #password />
+    </div>
+    <div class="inputForm">
+        <label>确认密码: </label>
+        <input type="password" #confirmPassword />
     </div>
     <div class="inputForm">
         <label>Email: </label>
         <input #accountEmail />
     </div>
     <div class="inputForm">
-        <label>PhoneNumber: </label>
+        <label>电话: </label>
         <input #accountPhoneNumber />
     </div>
-    <button (click)="add(accountName.value, accountEmail.value, accountPhoneNumber.value)">添加</button>
+    <button (click)="add(accountName.value, password.value, confirmPassword.value, accountEmail.value, accountPhoneNumber.value)">添加</button>
     <button (click)="goBack()">返回</button>
 </div>

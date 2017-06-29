@@ -11,6 +11,7 @@
 <table class="table">
     <tr>
         <th>ID</th>
+        <th>状态</th>
         <th>名称</th>
         <th>Email</th>
         <th>Phone</th>
@@ -23,6 +24,11 @@
         <ng-template #otherid>
             <td class="nonetable">{{ account.id }}</td>
         </ng-template>
+
+        <td class="eventable" *ngIf="idx % 2 == 1; else otherstate">{{ account.state }}</td>
+        <ng-template #otherstate>
+            <td class="nonetable">{{ account.state }}</td>
+        </ng-template>        
 
         <td class="eventable" *ngIf="idx % 2 == 1; else othername">{{ account.name }}</td>
         <ng-template #othername>
